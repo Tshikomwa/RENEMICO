@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Président National - RENEMICO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #e63946;
+            --accent-color: #e8eaf6;
+            --light-color: #f5f7fa;
+            --dark-color: #212529;
+            --success-color: #2e7d32;
+            --warning-color: #f4a261;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            --card-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            --presidential-gradient: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--presidential-gradient);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            padding: 0 15px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            margin-left: 280px;
+            width: calc(100% - 280px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .page-title h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .page-title p {
+            color: #666;
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            overflow: hidden;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .user-avatar .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Stats Overview */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            background: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .stat-info h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-info p {
+            margin: 5px 0 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Presidential Dashboard */
+        .presidential-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .presidential-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .presidential-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .presidential-card h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .presidential-card h3 i {
+            margin-right: 10px;
+        }
+        
+        .presidential-actions {
+            margin-top: 15px;
+        }
+        
+        .presidential-actions a {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .presidential-actions a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .presidential-actions a i {
+            margin-right: 8px;
+        }
+
+        /* Presidential Badge */
+        .presidential-badge {
+            display: inline-block;
+            background: var(--presidential-gradient);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .logo-container, .nav-link span {
+                display: none;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: 12px 5px;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+                font-size: 18px;
+            }
+            
+            .content-area {
+                margin-left: 80px;
+                width: calc(100% - 80px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+                position: relative;
+            }
+            
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+                margin-right: 5px;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+            }
+            
+            .content-area {
+                padding: 20px;
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .stats-grid,
+            .presidential-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .user-info {
+                margin-top: 20px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-avatar {
+                margin-right: 15px;
+            }
+            
+            .page-title {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .user-avatar {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="{% static 'images/logo1.png' %}" alt="Logo" class="logo">
+                <div class="sidebar-title">RENEMICO</div>
+                <div class="sidebar-subtitle">République Démocratique du Congo</div>
+            </div>
+            
+            <div class="nav-menu">                
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Statistiques Nationales</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="{% url 'identification:liste' %}" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Membres Nationaux</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="{% url 'finance:liste_membres_finance' %}" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Cotisations des membres</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'finance:liste_operations' %}" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Flux de trésorerie</span>
+                    </a>
+                </div>
+                             
+               
+                <div class="nav-item">
+                    <a href="{% url 'settings_view' %}" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content-area">
+            <div class="header">
+                <div class="page-title">
+                    <h1>Tableau de Bord Président National</h1>
+                    <p>Vue d'ensemble nationale du système RENEMICO</p>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-info">
+                    {% if user.photo %}
+                        <div class="user-avatar">
+                            <img src="{{ user.photo.url }}" alt="Photo de profil" class="profile-photo">
+                        </div>
+                    {% else %}
+                        <div class="user-avatar fallback">
+                            {{ user.first_name|first }}{{ user.last_name|first }}
+                        </div>
+                    {% endif %}
+                    <div>
+                        <div class="user-name">{{ user.get_full_name }}</div>
+                        <div class="user-name">Président National</div>
+                        <div class="user-role">Niveau d'accès: Maximum</div>
+                    </div>
+                </div>
+                    <div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ membres_actifs }}</h3>
+                        <p>Membres Nationaux</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ provinces_couvertes }}</h3>
+                        <p>Provinces Couvertes</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ fonds_nationaux|floatformat:0 }} $</h3>
+                        <p>Fonds Nationaux</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{% if croissance > 0 %}+{% endif %}{{ croissance }}%</h3>
+                        <p>Croissance Mensuelle</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Presidential Dashboard -->
+            <div class="presidential-grid">               
+                <div class="presidential-card">
+                    <h3><i class="fas fa-users-cog"></i>Gestion des Membres</h3>
+                    <p>Gérez les membres régionaux et leurs permissions</p>
+                    <div class="presidential-actions">
+                        <a href="{% url 'identification:liste' %}">
+                            <i class="fas fa-user-plus"></i> Liste des membres
+                        </a><br>
+                    </div>
+                </div>
+                
+                <div class="presidential-card">
+                    <h3><i class="fas fa-money-check"></i>Finances Nationales</h3>
+                    <p>Supervision des finances à l'échelle nationale</p>
+                    <div class="presidential-actions">
+                        <a href="{% url 'finance:liste_membres_finance' %}">
+                            <i class="fas fa-search-dollar"></i> Cotisations Mensuelles
+                        </a><br>
+                        <a href="{% url 'finance:liste_operations' %}">
+                            <i class="fas fa-money-check-alt"></i> Flux de trésorérie
+                        </a><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animation pour les cartes
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.presidential-card, .stat-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

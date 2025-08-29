@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.get_full_name }} - Profil Utilisateur | RENEMICO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Profil utilisateur de {{ user.get_full_name }} sur la plateforme RENEMICO">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --primary-light: #534bae;
+            --secondary-color: #ff5722;
+            --secondary-light: #ff8a50;
+            --accent-color: #4fc3f7;
+            --light-gray: #f5f5f5;
+            --dark-gray: #212529;
+            --success-color: #2e7d32;
+            --danger-color: #c62828;
+        }
+        
+        body {
+            font-family: 'Montserrat', 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            padding: 1.75rem;
+            border-bottom: none;
+            position: relative;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+        }
+        
+        .card-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-container {
+            position: relative;
+            padding: 3rem 2rem;
+        }
+        
+        /* Styles pour la photo de profil */
+        .profile-picture-wrapper {
+            position: relative;
+            width: fit-content;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .user-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .user-photo:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-placeholder {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 4.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 6px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-placeholder:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
+            transform: scale(1.05);
+        }
+        
+        .user-name {
+            font-weight: 700;
+            margin-top: 1.5rem;
+            color: var(--primary-color);
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .user-name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+        
+        .user-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 1rem 0 1.5rem;
+            background: rgba(255, 87, 34, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--accent-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-title i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .info-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-label i {
+            margin-right: 8px;
+            color: var(--primary-light);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .info-value {
+            font-weight: 500;
+            color: var(--dark-gray);
+            flex: 1;
+            word-break: break-word;
+        }
+        
+        .badge-custom {
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-active {
+            background-color: rgba(46, 125, 50, 0.15);
+            color: var(--success-color);
+        }
+        
+        .status-expired {
+            background-color: rgba(198, 40, 40, 0.15);
+            color: var(--danger-color);
+        }
+        
+        .btn-edit {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 1.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+        }
+        
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 87, 34, 0.4);
+        }
+        
+        .btn-back {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 1.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 35, 126, 0.2);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+        
+        .stats-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 992px) {
+            .profile-container {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .user-photo, .photo-placeholder {
+                width: 150px;
+                height: 150px;
+                font-size: 3rem;
+            }
+            
+            .user-name {
+                font-size: 1.6rem;
+            }
+            
+            .user-title {
+                font-size: 1rem;
+            }
+            
+            .info-item {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                margin-bottom: 0.3rem;
+                min-width: 100%;
+            }
+            
+            .card-header {
+                padding: 1.25rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .user-photo, .photo-placeholder {
+                width: 120px;
+                height: 120px;
+                font-size: 2.2rem;
+            }
+            
+            .user-name {
+                font-size: 1.4rem;
+            }
+            
+            .btn-back, .btn-edit {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Animation classes */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="card animate__animated animate__fadeIn">
+            <div class="card-header text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="card-title"><i class="fas fa-user-circle me-2"></i>PROFIL UTILISATEUR</h2>
+                    {% if user.is_active %}
+                        <span class="badge-custom status-active animate__animated animate__pulse animate__infinite"><i class="fas fa-circle me-1" style="font-size: 0.6rem;"></i> ACTIF</span>
+                    {% else %}
+                        <span class="badge-custom status-expired"><i class="fas fa-circle me-1" style="font-size: 0.6rem;"></i> INACTIF</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="profile-container">
+                    <div class="row">
+                        <div class="col-lg-4 text-center mb-4 mb-lg-0 animate__animated animate__fadeInLeft">
+                            <div class="profile-picture-wrapper">
+                                {% if user.photo %}
+                                    <img src="{{ user.photo.url }}" 
+                                         alt="Photo de {{ user.get_full_name }}" 
+                                         class="user-photo animate-slide-up"
+                                         onerror="this.style.display='none'; document.querySelector('.photo-placeholder').style.display='flex'">
+                                {% endif %}
+                                
+                                {% if not user.photo or not user.photo.url %}
+                                    <div class="photo-placeholder animate-slide-up">
+                                        {{ user.nom|first }}{{ user.prenom|first }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <h3 class="user-name animate__animated animate__fadeIn">{{ user.get_full_name }}</h3>
+                            <p class="user-title animate__animated animate__fadeIn">
+                                <i class="fas fa-id-badge me-2"></i>{{ user.get_level_display }}
+                            </p>
+                            
+                            <div class="social-links animate__animated animate__fadeIn">
+                                {% if user.email %}
+                                <a href="mailto:{{ user.email }}" class="social-link" style="background: #d44638;" title="Envoyer un email">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-8">
+                                                        
+                            <div class="info-card animate__animated animate__fadeIn animate__delay-2s">
+                                <h5 class="info-title"><i class="fas fa-info-circle"></i> INFORMATIONS PERSONNELLES</h5>
+                                <div class="info-item">
+                                    <span class="info-label"><i class="fas fa-id-card"></i>Identifiant:</span>
+                                    <span class="info-value">{{ user.username }}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><i class="fas fa-envelope"></i>Email:</span>
+                                    <span class="info-value">{{ user.email|default:"Non spécifié" }}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label"><i class="fas fa-phone"></i>Téléphone:</span>
+                                    <span class="info-value">{{ user.phone|default:"Non spécifié" }}</span>
+                                </div>
+                            </div>
+                            
+                                                       
+                            {% if user.bio %}
+                            <div class="info-card animate__animated animate__fadeIn animate__delay-2-4s">
+                                <h5 class="info-title"><i class="fas fa-user-edit"></i> À PROPOS</h5>
+                                <div class="info-value">
+                                    {{ user.bio|linebreaks }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer bg-transparent border-top text-end">
+                <div class="d-flex flex-wrap justify-content-end gap-2">
+                    <a href="{% url 'users' %}" class="btn btn-back animate__animated animate__fadeIn">
+                        <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+                    </a>
+                    <a href="#" class="btn btn-primary btn-edit animate__animated animate__fadeIn">
+                        <i class="fas fa-edit me-1"></i> Modifier le profil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation pour les éléments de la carte
+            const animateElements = (selector, animation) => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach((el, index) => {
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.classList.add(animation);
+                    }, index * 100);
+                });
+            };
+            
+            // Animer les éléments progressivement
+            animateElements('.animate-slide-up', 'animate__animated animate__fadeInUp');
+            animateElements('.animate-fade-in', 'animate__animated animate__fadeIn');
+            
+            // Gestion de l'affichage de la photo ou du placeholder
+            const photo = document.querySelector('.user-photo');
+            const placeholder = document.querySelector('.photo-placeholder');
+            
+            if (photo && photo.complete && photo.naturalHeight === 0) {
+                photo.style.display = 'none';
+                if (placeholder) placeholder.style.display = 'flex';
+            }
+            
+            // Effet de survol pour les cartes d'info
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                    card.style.boxShadow = '';
+                });
+            });
+            
+            // Cliquer sur la photo ou le placeholder pour changer d'image
+            const profilePicture = photo || placeholder;
+            if (profilePicture) {
+                profilePicture.addEventListener('click', function() {
+                    // Ici vous pourriez ajouter une fonctionnalité de changement de photo
+                    console.log('Changer la photo de profil');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

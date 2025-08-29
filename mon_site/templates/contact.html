@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                </ol>
+            </nav>
+            <h1 class="breadcrumb-title">Contactez-nous</h1>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <h2 class="section-title mb-4">Envoyez-nous un message</h2>
+                    <form id="contactForm" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="name" class="form-label">Nom complet *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <div class="invalid-feedback">Veuillez entrer votre nom.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="email" class="form-label">Adresse email *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="subject" class="form-label">Sujet *</label>
+                            <input type="text" class="form-control" id="subject" name="subject" required>
+                            <div class="invalid-feedback">Veuillez entrer un sujet.</div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            <div class="invalid-feedback">Veuillez entrer votre message.</div>
+                        </div>
+                        <button type="submit" class="btn btn-renemico">Envoyer le message</button>
+                    </form>
+                    <div id="formSuccess" class="alert alert-success mt-4" style="display: none;">
+                        Votre message a été envoyé avec succès! Nous vous répondrons dans les plus brefs délais.
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="contact-info-card p-4 rounded shadow-sm">
+                        <h3 class="mb-4">Informations de contact</h3>
+                        
+                        <div class="contact-item d-flex mb-4">
+                            <div class="contact-icon me-3 text-primary">
+                                <i class="fas fa-map-marker-alt fa-lg"></i>
+                            </div>
+                            <div>
+                                <h5>Adresse</h5>
+                                <p>Kolwezi, République Démocratique du Congo</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item d-flex mb-4">
+                            <div class="contact-icon me-3 text-primary">
+                                <i class="fas fa-phone fa-lg"></i>
+                            </div>
+                            <div>
+                                <h5>Téléphone</h5>
+                                <p>+243 81 60 69 861</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item d-flex mb-4">
+                            <div class="contact-icon me-3 text-primary">
+                                <i class="fas fa-envelope fa-lg"></i>
+                            </div>
+                            <div>
+                                <h5>Email</h5>
+                                <p>contact@renemico.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item d-flex">
+                            <div class="contact-icon me-3 text-primary">
+                                <i class="fas fa-clock fa-lg"></i>
+                            </div>
+                            <div>
+                                <h5>Heures d'ouverture</h5>
+                                <p>Lundi - Vendredi: 8h00 - 17h00</p>
+                                <p>Samedi: 9h00 - 12h00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links mt-4 pt-3 border-top">
+                            <h5 class="mb-3">Suivez-nous</h5>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="social-link"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter fa-lg"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-instagram fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center mb-4">Notre localisation</h2>
+            <div class="map-container rounded shadow-sm overflow-hidden">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61327.42838317963!2d25.4386905!3d-10.7157366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19754d52dfeadf8f%3A0xf0c4a1e3c55aaf3!2sKolwezi%2C%20Democratic%20Republic%20of%20the%20Congo!5e0!3m2!1sen!2sus!4v1651234567890!5m2!1sen!2sus" 
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FAQ Section -->
+    <section class="faq-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Questions fréquentes</h2>
+                <p class="lead">Trouvez des réponses aux questions les plus courantes</p>
+            </div>
+            
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Comment devenir membre de RENEMICO ?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Pour devenir membre de RENEMICO, vous devez être un négociant minier opérant en RDC. Remplissez le formulaire d'adhésion disponible sur notre siège social et soumettez les documents requis. Notre équipe vous contactera pour finaliser le processus.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Quels sont les avantages d'être membre ?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Nos membres bénéficient de nombreux avantages : représentation auprès des autorités, formations spécialisées, accès à l'information sur les marchés, opportunités de réseautage, assistance juridique et bien plus encore.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Comment puis-je participer à vos formations ?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Nos formations sont annoncées sur notre site web et via nos newsletters. Les membres bénéficient de tarifs préférentiels. Inscrivez-vous à notre newsletter pour rester informé des prochaines sessions de formation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5" style="background-color: var(--primary-color);">
+        <div class="container text-center py-4">
+            <h2 class="mb-4 text-white">Prêt à rejoindre notre réseau ?</h2>
+            <p class="lead mb-4 text-white">Devenez membre de RENEMICO et bénéficiez de tous nos services et avantages</p>
+            <a href="{% url 'join' %}" class="btn btn-light btn-lg me-3">Devenir Membre</a>
+            <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">En savoir plus</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Validation du formulaire de contact
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contactForm');
+        const successMessage = document.getElementById('formSuccess');
+        
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Réinitialiser les messages de validation
+            const inputs = form.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('is-invalid');
+            });
+            
+            // Valider les champs
+            let isValid = true;
+            
+            // Validation du nom
+            const nameInput = document.getElementById('name');
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validation de l'email
+            const emailInput = document.getElementById('email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailInput.value.trim() || !emailPattern.test(emailInput.value)) {
+                emailInput.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validation du sujet
+            const subjectInput = document.getElementById('subject');
+            if (!subjectInput.value.trim()) {
+                subjectInput.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validation du message
+            const messageInput = document.getElementById('message');
+            if (!messageInput.value.trim()) {
+                messageInput.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Si le formulaire est valide, afficher le message de succès
+            if (isValid) {
+                // En conditions réelles, vous enverriez les données au serveur ici
+                form.reset();
+                successMessage.style.display = 'block';
+                
+                // Masquer le message après 5 secondes
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
+        
+        // Enlever la validation lors de la saisie
+        const inputs = form.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+            });
+        });
+    });
+</script>
+{% endblock %}

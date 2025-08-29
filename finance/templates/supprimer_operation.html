@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Supprimer Opération{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card animate-fade">
+            <div class="card-header py-3 text-center" style="background-color: var(--danger-color); color: white;">
+                <h4 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Supprimer l'opération</h4>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="alert alert-warning mb-4">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong>Attention!</strong> Êtes-vous sûr de vouloir supprimer définitivement cette opération ?
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger mb-3">Détails de l'opération</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                    <div>
+                                        <strong>Date</strong>
+                                        <p class="mb-0">{{ operation.date }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-exchange-alt text-primary me-2"></i>
+                                    <div>
+                                        <strong>Type</strong>
+                                        <p class="mb-0">{{ operation.get_type_operation_display }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-file-alt text-primary me-2"></i>
+                                <div>
+                                    <strong>Motif</strong>
+                                    <p class="mb-0">{{ operation.motif }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-euro-sign text-primary me-2"></i>
+                                    <div>
+                                        <strong>Montant</strong>
+                                        <p class="mb-0">{{ operation.montant }} FC</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user text-primary me-2"></i>
+                                    <div>
+                                        <strong>Perçu par</strong>
+                                        <p class="mb-0">{{ operation.percu_par }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{% url 'finance:liste_operations' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-1"></i> Annuler
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-1"></i> Oui, supprimer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .alert-warning {
+        border-radius: 8px;
+        border: none;
+        background-color: rgba(243, 156, 18, 0.15);
+        color: var(--dark-color);
+    }
+    
+    .btn-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-danger:hover {
+        background-color: #c0392b;
+        border-color: #c0392b;
+        transform: translateY(-2px);
+    }
+    
+    .card .card {
+        background-color: rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}

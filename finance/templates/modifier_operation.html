@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Modifier Opération{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card animate-fade">
+            <div class="card-header py-3" style="background-color: var(--warning-color); color: white;">
+                <h4 class="mb-0"><i class="fas fa-edit me-2"></i>Modifier l'opération</h4>
+                <p class="mb-0 mt-1">{{ operation.motif }}</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.date.id_for_label }}" class="form-label fw-semibold">
+                                <i class="fas fa-calendar-alt me-1"></i>{{ form.date.label }}
+                            </label>
+                            {{ form.date }}
+                            {% if form.date.errors %}
+                                <div class="text-danger mt-1">{{ form.date.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.type_operation.id_for_label }}" class="form-label fw-semibold">
+                                <i class="fas fa-exchange-alt me-1"></i>{{ form.type_operation.label }}
+                            </label>
+                            {{ form.type_operation }}
+                            {% if form.type_operation.errors %}
+                                <div class="text-danger mt-1">{{ form.type_operation.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.motif.id_for_label }}" class="form-label fw-semibold">
+                            <i class="fas fa-file-alt me-1"></i>{{ form.motif.label }}
+                        </label>
+                        {{ form.motif }}
+                        {% if form.motif.errors %}
+                            <div class="text-danger mt-1">{{ form.motif.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.montant.id_for_label }}" class="form-label fw-semibold">
+                                <i class="fas fa-euro-sign me-1"></i>{{ form.montant.label }}
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">€</span>
+                                {{ form.montant }}
+                            </div>
+                            {% if form.montant.errors %}
+                                <div class="text-danger mt-1">{{ form.montant.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.percu_par.id_for_label }}" class="form-label fw-semibold">
+                                <i class="fas fa-user me-1"></i>{{ form.percu_par.label }}
+                            </label>
+                            {{ form.percu_par }}
+                            {% if form.percu_par.errors %}
+                                <div class="text-danger mt-1">{{ form.percu_par.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% url 'finance:liste_operations' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Annuler
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i> Modifier
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-label {
+        margin-bottom: 0.5rem;
+        color: var(--dark-color);
+    }
+    
+    .input-group-text {
+        border-radius: 8px 0 0 8px;
+        background-color: var(--card-bg) !important;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        color: var(--dark-color);
+    }
+    
+    input, select, textarea {
+        border-radius: 8px;
+        padding: 0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: var(--card-bg);
+        color: var(--dark-color);
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        transform: scale(1.02);
+    }
+    
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    .btn-warning {
+        background-color: #f39c12;
+        border-color: #f39c12;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-warning:hover {
+        background-color: #e67e22;
+        border-color: #e67e22;
+        transform: translateY(-2px);
+        color: white;
+    }
+</style>
+{% endblock %}

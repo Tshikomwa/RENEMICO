@@ -1,0 +1,13 @@
+{% extends "login/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Supprimer contribution</h2>
+    <p>Voulez-vous vraiment supprimer la contribution de {{ contribution.mois|date:"F Y" }} pour {{ contribution.membre.nom }} {{ contribution.membre.post_nom }} ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+        <a href="{% url 'finance:historique' contribution.membre.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

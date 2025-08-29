@@ -1,0 +1,13 @@
+{% extends "login/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Modifier contribution de {{ contribution.membre.nom }} {{ contribution.membre.post_nom }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{% url 'finance:historique' contribution.membre.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

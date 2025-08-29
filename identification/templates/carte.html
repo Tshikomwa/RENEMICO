@@ -1,0 +1,54 @@
+<!-- identification/templates/identification/carte.html -->
+{% extends 'login/base.html' %}
+
+{% block content %}
+<div class="content-area">
+    <div class="header">
+        <div class="page-title">
+            <h1>Carte d'Identité</h1>
+            <p>Membre: {{ membre.nom }} {{ membre.post_nom }} {{ membre.prenom }}</p>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Carte d'Identité Membre</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            {% if membre.photo %}
+                            <img src="{{ membre.photo.url }}" class="img-fluid rounded mb-3" alt="Photo">
+                            {% else %}
+                            <div class="bg-light p-4 rounded mb-3">
+                                <i class="fas fa-user fa-5x text-muted"></i>
+                            </div>
+                            {% endif %}
+                            <img src="{% url 'identification:afficher_qrcode' pk=membre.id %}" class="img-fluid" alt="QR Code">
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{ membre.nom }} {{ membre.post_nom }} {{ membre.prenom }}</h5>
+                            <p class="card-text">
+                                <strong>Code:</strong> {{ membre.code }}<br>
+                                <strong>Date Naissance:</strong> {{ membre.date_naissance|date:"d/m/Y" }}<br>
+                                <strong>Enregistré le:</strong> {{ membre.date_enregistrement|date:"d/m/Y" }}<br>
+                                <strong>Dernière mise à jour:</strong> {{ membre.date_mise_a_jour|date:"d/m/Y" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'identification:renouveler_carte' membre_id=membre.id %}" class="btn btn-warning me-2">
+                        <i class="fas fa-sync-alt me-1"></i> Renouveler
+                    </a>
+                    <button onclick="window.print()" class="btn btn-primary">
+                        <i class="fas fa-print me-1"></i> Imprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

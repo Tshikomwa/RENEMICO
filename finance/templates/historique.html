@@ -1,0 +1,395 @@
+{% extends "login/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="h4 mb-1">
+                <i class="fas fa-history text-primary me-2"></i>
+                Historique des contributions
+            </h2>
+            <p class="text-muted mb-0">{{ membre.nom }} {{ membre.post_nom }} {{ membre.prenom }}</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{% url 'finance:ajouter' membre.id %}" class="btn btn-success">
+                <i class="fas fa-plus-circle me-2"></i> Nouvelle contribution
+            </a>
+            <a href="{% url 'finance:liste_membres_finance' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <!-- Carte de résumé -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-primary bg-opacity-10">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h6 class="card-title text-muted mb-0">Total contributions</h6>
+                            <h4 class="fw-bold text-primary mb-0">{{ total_contributions }} $</h4>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-dollar-sign fa-2x text-primary opacity-25"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-success bg-opacity-10">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h6 class="card-title text-muted mb-0">Moyenne/contribution</h6>
+                            <h4 class="fw-bold text-success mb-0">{{ moyenne_mensuelle }} $</h4>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-chart-line fa-2x text-success opacity-25"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-info bg-opacity-10">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h6 class="card-title text-muted mb-0">Nombre de contributions</h6>
+                            <h4 class="fw-bold text-info mb-0">{{ contributions|length }}</h4>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-calendar-alt fa-2x text-info opacity-25"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des contributions -->
+    <div class="card shadow border-0">
+        <div class="card-header bg-light py-3">
+            <h5 class="mb-0">Détail des contributions</h5>
+        </div>
+        </div>
+        <div class="card-body p-0">
+            {% if contributions %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">#</th>
+                            <th>Mois</th>
+                            <th>Montant (USD)</th>
+                            <th>Date d'enregistrement</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contribution in contributions %}
+                        <tr>
+                            <td class="ps-4 fw-bold">{{ forloop.counter }}</td>
+                            <td>
+                                <span class="badge bg-primary bg-opacity-10 text-primary">
+                                    {{ contribution.mois|date:"Y-m" }}
+                                </span>
+                                <span class="ms-2">{{ contribution.mois|date:"F Y" }}</span>
+                            </td>
+                            <td class="fw-bold text-success">{{ contribution.montant }} $</td>
+                            <td class="text-muted">{{ contribution.date_paiement|date:"d/m/Y" }}</td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{% url 'finance:modifier_contribution' contribution.id %}" class="btn btn-outline-primary" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'finance:supprimer_contribution' contribution.id %}" class="btn btn-outline-danger" title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="{% url 'finance:generer_facture_contribution' contribution.id %}" class="btn btn-outline-success" title="Générer facture">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
+                                </div>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <th colspan="2" class="text-end ps-4">Total</th>
+                            <th class="fw-bold text-success">{{ total_contributions }} $</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">Aucune contribution enregistrée</h5>
+                <p class="text-muted">Ce membre n'a pas encore de contributions.</p>
+                <a href="{% url 'finance:ajouter' membre.id %}" class="btn btn-primary mt-2">
+                    <i class="fas fa-plus-circle me-2"></i>Ajouter la première contribution
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Graphique amélioré -->
+    {% if contributions %}
+    <div class="card mt-4 shadow border-0">
+        <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Évolution des contributions</h5>
+            <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" id="toggleChartType">
+                <label class="form-check-label small" for="toggleChartType">
+                    Afficher en courbes
+                </label>
+            </div>
+        </div>
+        <div class="card-body position-relative">
+            <div class="chart-container">
+                <canvas id="contributionChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Inclure Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2/dist/chartjs-plugin-annotation.min.js"></script>
+
+<style>
+    .card {
+        border-radius: 0.8rem;
+    }
+    
+    .table th {
+        border-top: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+    
+    .btn {
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(25, 135, 84, 0.2);
+    }
+    
+    .badge {
+        padding: 0.35em 0.65em;
+        font-size: 0.75em;
+    }
+    
+    .chart-container {
+        position: relative;
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<script>
+    // Conversion des mois en français
+    document.addEventListener('DOMContentLoaded', function() {
+        const cells = document.querySelectorAll('td');
+        const moisEn = {
+            'January': 'Janvier', 'February': 'Février', 'March': 'Mars', 
+            'April': 'Avril', 'May': 'Mai', 'June': 'Juin',
+            'July': 'Juillet', 'August': 'Août', 'September': 'Septembre',
+            'October': 'Octobre', 'November': 'Novembre', 'December': 'Décembre'
+        };
+        
+        cells.forEach(cell => {
+            if (cell.textContent.includes('January') || cell.textContent.includes('February') || 
+                cell.textContent.includes('March') || cell.textContent.includes('April') || 
+                cell.textContent.includes('May') || cell.textContent.includes('June') || 
+                cell.textContent.includes('July') || cell.textContent.includes('August') || 
+                cell.textContent.includes('September') || cell.textContent.includes('October') || 
+                cell.textContent.includes('November') || cell.textContent.includes('December')) {
+                
+                for (const [en, fr] of Object.entries(moisEn)) {
+                    if (cell.textContent.includes(en)) {
+                        cell.textContent = cell.textContent.replace(en, fr);
+                        break;
+                    }
+                }
+            }
+        });
+
+        // Graphique des contributions
+        {% if contributions %}
+        const contributionsData = [
+            {% for contribution in contributions %}
+            {
+                mois: "{{ contribution.mois|date:'Y-m' }}",
+                montant: {{ contribution.montant }},
+                moisFormatted: "{{ contribution.mois|date:'F Y' }}"
+            },
+            {% endfor %}
+        ].reverse(); // Inverser pour avoir l'ordre chronologique
+
+        // Préparer les données pour le graphique
+        const labels = contributionsData.map(item => {
+            const [year, month] = item.mois.split('-');
+            const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+            return `${monthNames[parseInt(month)-1]} ${year}`;
+        });
+        
+        const dataPoints = contributionsData.map(item => item.montant);
+        
+        // Calculer la moyenne
+        const average = dataPoints.reduce((a, b) => a + b, 0) / dataPoints.length;
+        
+        // Configuration du graphique
+        const ctx = document.getElementById('contributionChart').getContext('2d');
+        let chart;
+        
+        // Fonction pour créer le graphique
+        function createChart(type = 'bar') {
+            const isLineChart = type === 'line';
+            
+            return new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Montant des contributions ($)',
+                        data: dataPoints,
+                        backgroundColor: isLineChart ? 'rgba(54, 162, 235, 0.1)' : 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: isLineChart,
+                        tension: isLineChart ? 0.3 : 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            titleFont: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Montant: ${context.raw}$`;
+                                }
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: average,
+                                    yMax: average,
+                                    borderColor: 'rgba(255, 99, 132, 0.8)',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    label: {
+                                        display: true,
+                                        content: `Moyenne: ${average.toFixed(2)}$`,
+                                        position: 'end',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                                        color: 'white',
+                                        font: {
+                                            weight: 'bold'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Montant ($)',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '$';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Mois',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    animations: {
+                        tension: {
+                            duration: 1000,
+                            easing: 'linear'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialiser le graphique
+        chart = createChart();
+        
+        // Basculer entre les types de graphique
+        document.getElementById('toggleChartType').addEventListener('change', function() {
+            const newType = this.checked ? 'line' : 'bar';
+            chart.destroy();
+            chart = createChart(newType);
+        });
+        {% endif %}
+    });
+</script>
+{% endblock %}

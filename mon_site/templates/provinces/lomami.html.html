@@ -1,0 +1,375 @@
+{% extends 'provinces/province.html' %}
+
+{% block title %}{{ province }} - Provinces RDC{% endblock %}
+
+{% block content %}
+<div class="province-hero">
+    <section class="hero-section text-center py-5">
+        <div class="container">
+            <div class="hero-content bg-light rounded-4 p-5 shadow">
+                <h1 class="hero-title display-4 fw-bold text-gradient">{{ province }}</h1>
+                <p class="hero-subtitle lead mt-3">
+                    RENEMICO confirme sa présence sur le terrain et annonce une réouverture prochaine de ses activités dans la province.
+                </p>
+                <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                    <a href="{% url 'about' %}" class="btn btn-primary btn-lg px-4 py-2">
+                        <i class="fas fa-info-circle me-2"></i>En savoir plus
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline-dark btn-lg px-4 py-2">
+                        <i class="fas fa-envelope me-2"></i>Nous contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="container my-5">
+    <div class="row">       
+        <!-- Contenu principal -->
+        <div class="col-lg-8">
+            <!-- Section À propos -->
+            <section class="about-section mb-5">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-light py-3">
+                        <h2 class="section-title mb-0"><i class="fas fa-info-circle me-2 text-primary"></i>Qui sommes-nous ?</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-justify">Dans le souci de promouvoir l'activité minière des négociants congolais et de se conformer littéralement au code minier congolais ainsi qu'au règlement minier en vigueur en République Démocratique du Congo, nous, négociants et membres fondateurs du regroupement des négociants miniers du Congo, association sans but lucratif « RENEMICO » en sigle, venons de créer et de mettre à la disposition de tous les Congolais œuvrant dans l'achat et la revente des minerais issus de l'exploitation minière artisanale ladite association régie par la loi N°004/2001 du 20 juillet 2001 portant dispositions générales applicables aux associations sans but lucratif et établissement d'utilité publique, afin de bien défendre les droits et intérêts supérieurs des négociants pour matérialiser la création de la classe moyenne telle que souhaitée par le législateur du nouveau code minier.</p>
+
+                        <p class="text-justify">Constatant le sous-développement et les difficultés rencontrées par les négociants et autres acteurs congolais du secteur minier artisanal sur le plan socio-économique, nous sommes soucieux de concrétiser la vision du législateur congolais du code minier qui n'est autre que l'émergence et le développement économique des Congolais œuvrant dans l'exploitation minière artisanale.</p>
+
+                        <p class="text-justify">Qu'en adoptant la constitution de la République Démocratique du Congo de 2006, telle que modifiée à ce jour, les membres de RENEMICO ASBL peuvent se réunir, s'exprimer librement pour défendre les lois de notre país, patrimoine commun, dans la dignité et le respect de la loi fondamentale.</p>
+
+                        <p class="text-justify">C'est ainsi que les présents statuts modifiés sont mis à la disposition de tout le monde et entrent en vigueur à la date des signatures par les membres fondateurs.</p>
+
+                        <h4 class="mt-4 text-primary">Nos objectifs majeurs :</h4>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item border-0"><i class="fas fa-check-circle text-primary me-2"></i>Défendre les droits et intérêts de tous les négociants miniers du Congo</li>
+                            <li class="list-group-item border-0"><i class="fas fa-check-circle text-primary me-2"></i>Promouvoir le développement socio-économique et culturel des négociants miniers congolais</li>
+                            <li class="list-group-item border-0"><i class="fas fa-check-circle text-primary me-2"></i>Initier les opérateurs miniers congolais à des actions de développement économique</li>
+                            <li class="list-group-item border-0"><i class="fas fa-check-circle text-primary me-2"></i>Faire respecter la catégorie de négociant dans la chaîne de l'exploitation minière artisanale</li>
+                            <li class="list-group-item border-0"><i class="fas fa-check-circle text-primary me-2"></i>Être le syndicat de tous les négociants à travers le pays</li>
+                        </ul>
+
+                        <div class="text-center mt-4">
+                            <a href="{% url 'about' %}" class="btn btn-primary px-4">
+                                <i class="fas fa-book-open me-2"></i>Lire plus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Services -->
+            <section class="services-section mb-5">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-light py-3">
+                        <h2 class="section-title mb-0 text-center"><i class="fas fa-concierge-bell me-2 text-primary"></i>Nos Services</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead text-center mb-4">Nous offrons une gamme complète de services à nos membres</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="service-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="service-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                                            <i class="fas fa-handshake fa-2x"></i>
+                                        </div>
+                                        <h5 class="card-title">Représentation</h5>
+                                        <p class="card-text">Nous représentons les intérêts de nos membres auprès des autorités gouvernementales, des institutions internationales et d'autres parties prenantes du secteur minier.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="service-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="service-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                                            <i class="fas fa-graduation-cap fa-2x"></i>
+                                        </div>
+                                        <h5 class="card-title">Formation</h5>
+                                        <p class="card-text">Programmes de formation sur les meilleures pratiques minières, les normes environnementales, les droits de l'homme et les aspects commerciaux du négoce des minerais.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="service-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="service-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                                            <i class="fas fa-balance-scale fa-2x"></i>
+                                        </div>
+                                        <h5 class="card-title">Plaidoyer</h5>
+                                        <p class="card-text">Nous plaidons pour des politiques minières équitables et des réglementations qui favorisent un environnement commercial favorable pour les négociants miniers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="service-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="service-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                                            <i class="fas fa-chart-line fa-2x"></i>
+                                        </div>
+                                        <h5 class="card-title">Information</h5>
+                                        <p class="card-text">Fourniture d'informations actualisées sur les marchés, les prix des minerais, les réglementations et les opportunités commerciales.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="service-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="service-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                                            <i class="fas fa-users fa-2x"></i>
+                                        </div>
+                                        <h5 class="card-title">Réseautage</h5>
+                                        <p class="card-text">Créeation de plateformes pour que nos membres puissent réseauter avec d'autres acteurs du secteur minier, y compris des acheteurs internationaux.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="service-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="service-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                                            <i class="fas fa-shield-alt fa-2x"></i>
+                                        </div>
+                                        <h5 class="card-title">Due Diligence</h5>
+                                        <p class="card-text">Assistance dans la mise en œuvre des processus de due diligence pour garantir des chaînes d'approvisionnement responsables en minerais.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mot du Président -->
+            <section class="president-section mb-5">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-light py-3">
+                        <h2 class="section-title mb-0"><i class="fas fa-quote-left me-2 text-primary"></i>Mot du Président National</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="president-content bg-light p-4 rounded-3 mb-4">
+                            <p class="fst-italic text-justify">"En ma qualité de Président National du Regroupement des Négociants Miniers du Congo, « RENEMICO » en sigle, je tiens avant tout à exprimer ma profonde gratitude à Son Excellence Monsieur le Président de la République, Chef de l'État, pour sa vision éclairée et son engagement constant en faveur de la bonne gouvernance, de l'émergence de la classe moyenne et du développement du secteur minier en République Démocratique du Congo."</p>
+                            
+                            <p class="text-justify">C'est en nous inspirant de cette vision nationale que nous, négociants et membres fondateurs, avons décidé de mettre en place le RENEMICO, une association sans but lucratif qui a pour mission de défendre les droits et intérêts des négociants miniers, de promouvoir leur rôle dans la chaîne de valeur de l'exploitation artisanale et d'apporter une contribution significative au développement socio-économique de notre pays.</p>
+                            
+                            <p class="text-justify">Nous sommes convaincus que les négociants miniers congolais représentent un maillon essentiel pour la matérialisation de la classe moyenne, moteur d'une économie nationale forte et inclusive. Ainsi, à travers RENEMICO, nous nous engageons à travailler dans le strict respect du Code et du Règlement minier en vigueur, afin d'apporter une plus-value tangible à la République et d'améliorer les conditions de vie de nos membres.</p>
+                            
+                            <p class="text-justify">J'invite donc tous les négociants miniers du Congo, ainsi que nos partenaires institutionnels et privés, à se joindre à nous dans cette noble mission. Ensemble, unis autour de la vision de Son Excellence le Chef de l'État, nous bâtirons une économie nationale solidaire, prospère et respectueuse des lois de notre pays.</p>
+                        </div>
+                        
+                        <div class="text-end">
+                            <p class="mb-0 fw-bold">Cédric MPUNGWE</p>
+                            <p class="text-muted">Le Président National</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Carte de contact -->
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-light py-3">
+                    <h3 class="h5 mb-0"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Localisation</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <img src="https://via.placeholder.com/300x200?text=Carte+{{ province }}" alt="Carte de {{ province }}" class="img-fluid rounded">
+                    </div>
+                    <p class="mb-1"><strong>Province :</strong> {{ province }}</p>
+                    <p class="mb-1"><strong>Région :</strong> [Nom de la région]</p>
+                    <p class="mb-0"><strong>Population :</strong> [Nombre d'habitants]</p>
+                </div>
+            </div>
+            
+            <!-- Coordonnées -->
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-light py-3">
+                    <h3 class="h5 mb-0"><i class="fas fa-address-book me-2 text-primary"></i>Coordonnées</h3>
+                </div>
+                <div class="card-body">
+                    <p><i class="fas fa-user me-2 text-primary"></i> <strong>Représentant :</strong> [Nom du représentant]</p>
+                    <p><i class="fas fa-phone me-2 text-primary"></i> <strong>Téléphone :</strong> [Numéro de téléphone]</p>
+                    <p><i class="fas fa-envelope me-2 text-primary"></i> <strong>Email :</strong> [Adresse email]</p>
+                    <p><i class="fas fa-map-marked me-2 text-primary"></i> <strong>Adresse :</strong> [Adresse complète]</p>
+                </div>
+            </div>
+            
+            <!-- Activités récentes -->
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-light py-3">
+                    <h3 class="h5 mb-0"><i class="fas fa-newspaper me-2 text-primary"></i>Activités Récentes</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Réunion avec les autorités locales</h6>
+                                <small class="text-muted">Il y a 3 jours</small>
+                            </div>
+                            <p class="mb-1 small">Discussion sur les défis du secteur minier artisanal.</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Formation des négociants</h6>
+                                <small class="text-muted">Il y a 1 semaine</small>
+                            </div>
+                            <p class="mb-1 small">Session de formation sur les nouvelles réglementations.</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Visite de sites miniers</h6>
+                                <small class="text-muted">Il y a 2 semaines</small>
+                            </div>
+                            <p class="mb-1 small">Évaluation des conditions de travail des artisans miniers.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Galerie -->
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-light py-3">
+                    <h3 class="h5 mb-0"><i class="fas fa-camera me-2 text-primary"></i>Galerie {{ province }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/100x80?text=Photo+1" alt="Activité minière" class="img-fluid rounded">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/100x80?text=Photo+2" alt="Réunion" class="img-fluid rounded">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/100x80?text=Photo+3" alt="Formation" class="img-fluid rounded">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/100x80?text=Photo+4" alt="Site minier" class="img-fluid rounded">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/100x80?text=Photo+5" alt="Minerais" class="img-fluid rounded">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/100x80?text=Photo+6" alt="Communauté" class="img-fluid rounded">
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="#" class="btn btn-sm btn-outline-primary">Voir plus de photos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styles personnalisés pour la page de province */
+    .province-hero {
+        background: linear-gradient(135deg, #FFD166, #FFB347, #FF9500);
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-content {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    .text-gradient {
+        background: linear-gradient(135deg, #FF9500, #FFB347);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .service-card:hover .service-icon {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #FF9500, #FFB347) !important;
+    }
+    
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .card-header {
+        border-bottom: 2px solid rgba(255, 149, 0, 0.2);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(to right, #FFB347, #FF9500);
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(255, 149, 0, 0.3);
+    }
+    
+    .btn-outline-primary {
+        color: #FF9500;
+        border-color: #FF9500;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-primary:hover {
+        background: linear-gradient(to right, #FFB347, #FF9500);
+        color: white;
+        border-color: transparent;
+    }
+    
+    .president-content {
+        border-left: 4px solid #FF9500;
+    }
+    
+    .text-justify {
+        text-align: justify;
+    }
+    
+    .list-group-item-action:hover {
+        background-color: rgba(255, 149, 0, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.2rem;
+        }
+        
+        .d-flex.flex-wrap {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .btn-lg {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

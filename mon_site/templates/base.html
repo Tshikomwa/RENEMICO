@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENEMICO - Regroupement des Négociants Miniers du Congo</title>
+    <meta name="description" content="RENEMICO, Regroupement des Négociants Miniers du Congo, représente les intérêts des négociants miniers en RDC">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #3b74fa;  /* Jaune doré - 70% */
+            --secondary-color: #0056b3; /* Bleu foncé - 20% */
+            --accent-color: #131111;    /* Noir - 10% */
+            --white-color: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--accent-color);
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            height: 50px;
+        }
+
+       
+        .nav-link {
+            color: var(--accent-color) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+        }
+        
+        .btn-renemico {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-renemico:hover {
+            background-color: #003d82;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(240, 237, 237, 0.4), rgba(247, 244, 244, 0.4)), 
+            url('{% static "images/renemico.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: var(--accent-color);
+        }
+
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background-color: var(--white-color);
+        }
+        
+        .section-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .service-card {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 60px 0;
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        
+        /* News Section */
+        .news-section {
+            padding: 80px 0;
+            background-color: var(--white-color);
+        }
+        
+        .news-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-date {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Partners Section */
+        .partners-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .partner-logo {
+            height: 80px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-links h5 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-links a {
+            color: var(--white-color);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="header sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'home' %}">
+                        <img src="{% static 'images/logo1.png' %}" alt="RENEMICO Logo" class="logo">
+                    </a>
+                    RENEMICO
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'home' %}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about' %}">À propos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'services' %}">Services</a>
+                            </li>
+                            <!-- Menu provinces -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{% url 'province' %}" id="provincesDropdown" role="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                    Provinces
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="provincesDropdown" 
+                                    style="max-height: 200px; overflow-y: auto;">
+                                    <!-- les 26 provinces, en ordre alphabétique -->
+                                    <li><a class="dropdown-item" href="{% url 'bas_uele' %}">Bas-Uele</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'equateur' %}">Equateur</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'haut_katanga' %}">Haut-Katanga</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'haut_lomami' %}">Haut-Lomami</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'haut_uele' %}">Haut-Uele</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'ituri' %}">Ituri</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kasai' %}">Kasaï</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kasai_central' %}">Kasaï Central</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kasai_oriental' %}">Kasai Oriental</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kinshasa' %}">Kinshasa</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kongo_central' %}">Kongo-Central</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kwango' %}">Kwango</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'kwilu' %}">Kwilu</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'lomami' %}">Lomami</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'lualaba' %}">Lualaba</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'mai_ndombe' %}">Mai-ndombe</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'maniema' %}">Maniema</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'mongala' %}">Mongala</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'nord_kivu' %}">Nord-Kivu</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'nord_ubangi' %}">Nord-Ubangi</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'sankuru' %}">Sankuru</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'sud_kivu' %}">Sud-Kivu</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'sud_ubangi' %}">Sud-Ubangi</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tanganyika' %}">Tanganyika</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tshopo' %}">Tshopo</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tshuapa' %}">Tshuapa</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'news' %}">Actualités</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                            </li>
+                            <li class="nav-item ms-lg-3">
+                                <a class="btn btn-renemico" href="{% url 'login' %}">Connexion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Block -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <img src="{% static 'images/logo1.png' %}" alt="RENEMICO Logo" class="logo mb-3">
+                    <p>Le Regroupement des Négociants Miniers du Congo (RENEMICO) est la principale organisation représentative des négociants miniers en République Démocratique du Congo.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Liens rapides</h5>
+                        <a href="{% url 'home' %}">Accueil</a>
+                        <a href="{% url 'about' %}">À propos</a>
+                        <a href="{% url 'services' %}">Services</a>
+                        <a href="{% url 'members' %}">Membres</a>
+                        <a href="{% url 'news' %}">Actualités</a>
+                        <a href="{% url 'contact' %}">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Nos Services</h5>
+                        <a href="#">Représentation</a>
+                        <a href="#">Formation</a>
+                        <a href="#">Plaidoyer</a>
+                        <a href="#">Information</a>
+                        <a href="#">Réseautage</a>
+                        <a href="#">Due Diligence</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4">
+                    <div class="footer-links">
+                        <h5>Contactez-nous</h5>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> Quartier Latin, Commune de Dilala, Kolwezi, RDC</p>
+                        <p><i class="fas fa-phone-alt me-2"></i> +243 81 60 69 861</p>
+                        <p><i class="fas fa-envelope me-2"></i> contact@renemico.com</p>
+                        <p><i class="fas fa-clock me-2"></i> Lun-Ven: 8h00-17h00</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright text-center">
+                <p class="mb-0">&copy; 2025 RENEMICO - Regroupement des Négociants Miniers du Congo. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Activer le tooltip Bootstrap
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.service-card, .news-card, .stat-number');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('animated');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Exécuter une fois au chargement
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

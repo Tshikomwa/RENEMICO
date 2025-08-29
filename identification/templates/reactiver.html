@@ -1,0 +1,24 @@
+{% extends "login/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Réactiver la carte de {{ membre.nom }} {{ membre.post_nom }}</h2>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <p><strong>Nom complet :</strong> {{ membre.nom }} {{ membre.post_nom }}</p>
+            <p><strong>Numéro de carte :</strong> {{ membre.code }}</p>
+            <p><strong>Date d’expiration actuelle :</strong> {{ membre.date_expiration|date:"d M Y" }}</p>
+            <p><strong>Statut :</strong> {{ membre.statut }}</p>
+        </div>
+    </div>
+
+    <form method="post" action="{% url 'identification:reactiver_carte' membre.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Réactiver la carte pour 1 an</button>
+        <a href="{% url 'identification:dashboard' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

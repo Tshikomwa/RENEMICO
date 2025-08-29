@@ -1,0 +1,20 @@
+/* Style de base pour améliorer l'apparence */
+.card {
+    border-radius: 10px;
+}
+
+.form-control, .form-select {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alert {
+    border-radius: 5px;
+}

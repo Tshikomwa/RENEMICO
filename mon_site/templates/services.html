@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Services</li>
+                </ol>
+            </nav>
+            <h1 class="breadcrumb-title">Nos Services</h1>
+        </div>
+    </section>
+
+    <!-- Services Intro Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title mb-4">Des services complets pour les négociants miniers</h2>
+                    <p class="lead">RENEMICO offre une gamme complète de services conçus pour soutenir, développer et protéger les activités des négociants miniers en RDC.</p>
+                    <p>Notre mission est de renforcer les capacités de nos membres, de défendre leurs intérêts et de promouvoir des pratiques minières responsables et durables qui contribuent au développement économique de la République Démocratique du Congo.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="{% url 'join' %}" class="btn btn-renemico">Devenir Membre</a>
+                        <a href="{% url 'contact' %}" class="btn btn-outline-dark">Nous Contacter</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'images/services-main.jpg' %}" alt="Services RENEMICO" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Nos Services Principaux</h2>
+                <p class="lead">Découvrez l'étendue de nos services dédiés aux négociants miniers</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Représentation Institutionnelle</h3>
+                        <p>Nous représentons les intérêts de nos membres auprès des autorités gouvernementales, des institutions internationales et d'autres parties prenantes du secteur minier. Notre présence active garantit que la voix des négociants est entendue dans les processus décisionnels.</p>
+                        <ul class="service-features">
+                            <li>Lobbying auprès des instances décisionnelles</li>
+                            <li>Participation aux comités techniques</li>
+                            <li>Représentation dans les dialogues sectoriels</li>
+                            <li>Interface avec l'administration minière</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Formation et Capacitation</h3>
+                        <p>Programmes de formation sur les meilleures pratiques minières, les normes environnementales, les droits de l'homme et les aspects commerciaux du négoce des minerais. Nous organisons des sessions régulières adaptées aux besoins spécifiques des négociants.</p>
+                        <ul class="service-features">
+                            <li>Formations techniques aux normes internationales</li>
+                            <li>Ateliers sur la traçabilité des minerais</li>
+                            <li>Séminaires sur les aspects légaux et fiscaux</li>
+                            <li>Programmes de développement des compétences commerciales</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Plaidoyer et Défense des Intérêts</h3>
+                        <p>Nous plaidons pour des politiques minières équitables et des réglementations qui favorisent un environnement commercial favorable pour les négociants miniers. Notre action vise à créer un cadre juridique et fiscal propice au développement du secteur.</p>
+                        <ul class="service-features">
+                            <li>Analyse et proposition de réformes législatives</li>
+                            <li>Défense contre les mesures discriminatoires</li>
+                            <li>Plaintes collectives contre les abus</li>
+                            <li>Négociation d'avantages sectoriels</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Veille Informationnelle et Marchés</h3>
+                        <p>Fourniture d'informations actualisées sur les marchés, les prix des minerais, les réglementations et les opportunités commerciales. Notre service d'information vous permet de prendre des décisions éclairées dans un secteur en constante évolution.</p>
+                        <ul class="service-features">
+                            <li>Bulletins mensuels sur les prix des minerais</li>
+                            <li>Alertes réglementaires en temps réel</li>
+                            <li>Analyses de marché détaillées</li>
+                            <li>Veille sur les appels d'offres internationaux</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Réseautage et Partenariats</h3>
+                        <p>Création de plateformes pour que nos membres puissent réseauter avec d'autres acteurs du secteur minier, y compris des acheteurs internationaux. Nous facilitons les connexions business qui génèrent des opportunités concrètes pour nos membres.</p>
+                        <ul class="service-features">
+                            <li>Événements de networking sectoriels</li>
+                            <li>Mission commerciale à l'international</li>
+                            <li>Rencontres B2B avec des acheteurs</li>
+                            <li>Plateforme digitale de mise en relation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Due Diligence et Conformité</h3>
+                        <p>Assistance dans la mise en œuvre des processus de due diligence pour garantir des chaînes d'approvisionnement responsables en minerais. Nous vous accompagnons pour répondre aux exigences croissantes des marchés internationaux en matière de traçabilité.</p>
+                        <ul class="service-features">
+                            <li>Audits de conformité aux standards internationaux</li>
+                            <li>Accompagnement dans les processus de certification</li>
+                            <li>Formation aux systèmes de traçabilité</li>
+                            <li>Support technique pour l'OCDE et autres cadres</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Appui Juridique et Conseil</h3>
+                        <p>Service d'assistance juridique et de conseil pour aider nos membres à naviguer dans le cadre réglementaire complexe du secteur minier. Notre équipe d'experts vous guide dans vos démarches administratives et vous assiste en cas de litige.</p>
+                        <ul class="service-features">
+                            <li>Conseil juridique spécialisé en droit minier</li>
+                            <li>Accompagnement dans les procédures administratives</li>
+                            <li>Assistance dans la résolution des conflits</li>
+                            <li>Support pour l'obtention des permis et autorisations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Environnement et Développement Durable</h3>
+                        <p>Accompagnement des membres dans l'adoption de pratiques minières respectueuses de l'environnement et socialement responsables. Nous promouvons une exploitation minière durable qui préserve les ressources pour les générations futures.</p>
+                        <ul class="service-features">
+                            <li>Diagnostics environnementaux</li>
+                            <li>Plans de gestion environnementale</li>
+                            <li>Formation aux pratiques minières durables</li>
+                            <li>Accompagnement dans les études d'impact</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100">
+                        <div class="service-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3>Reconnaissance et Certification</h3>
+                        <p>Programmes de reconnaissance et de certification qui valorisent l'expertise et le professionnalisme des négociants miniers membres de RENEMICO. Ces certifications renforcent votre crédibilité sur les marchés nationaux et internationaux.</p>
+                        <ul class="service-features">
+                            <li>Label de négociant responsable RENEMICO</li>
+                            <li>Certification des processus de due diligence</li>
+                            <li>Attestation de conformité aux standards sectoriels</li>
+                            <li>Recommandation auprès des partenaires internationaux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Process Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Comment accéder à nos services</h2>
+                <p class="lead">Un processus simple et transparent pour bénéficier de tous nos services</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-step text-center">
+                        <div class="process-number">1</div>
+                        <h4>Adhésion</h4>
+                        <p>Devenez membre de RENEMICO en remplissant le formulaire d'adhésion et en fournissant les documents requis.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-step text-center">
+                        <div class="process-number">2</div>
+                        <h4>Évaluation</h4>
+                        <p>Notre équipe évalue vos besoins spécifiques et vous oriente vers les services les plus adaptés.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-step text-center">
+                        <div class="process-number">3</div>
+                        <h4>Accès</h4>
+                        <p>Accédez à l'ensemble de nos services via notre plateforme en ligne, par email ou lors de nos événements.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-step text-center">
+                        <div class="process-number">4</div>
+                        <h4>Suivi</h4>
+                        <p>Bénéficiez d'un accompagnement personnalisé et d'un suivi régulier pour maximiser les bénéfices de nos services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Témoignages</h2>
+                <p class="lead">Ce que nos membres disent de nos services</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"Grâce à la formation de RENEMICO sur les processus de due diligence, j'ai pu obtenir la certification nécessaire pour exporter vers le marché international. Un accompagnement précieux !"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <h5>Jean Kabasele</h5>
+                            <p>Négociant, Province du Lualaba</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"Les informations market fournies par RENEMICO m'ont permis de mieux négocier mes prix avec les acheteurs internationaux. Je recommande vivement leurs services."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <h5>Marie-Louise Ilunga</h5>
+                            <p>Négociante, Province du Haut-Katanga</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>"L'appui juridique de RENEMICO m'a été d'une grande aide pour régulariser ma situation administrative. Aujourd'hui, je travaille en toute sérénité."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <h5>Patrick Mukendi</h5>
+                            <p>Négociant, Province du Tanganyika</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5" style="background-color: var(--primary-color);">
+        <div class="container text-center py-4">
+            <h2 class="mb-4 text-white">Prêt à bénéficier de nos services ?</h2>
+            <p class="lead mb-4 text-white">Rejoignez RENEMICO et accédez à tous nos services exclusifs</p>
+            <a href="{% url 'join' %}" class="btn btn-light btn-lg me-3">Devenir Membre</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Demander des informations</a>
+        </div>
+    </section>
+{% endblock %}

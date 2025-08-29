@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Actualités</li>
+                </ol>
+            </nav>
+            <h1 class="breadcrumb-title">Actualités & Événements</h1>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <h2 class="section-title mb-4">Dernières actualités</h2>
+                    
+                    <!-- Featured News -->
+                    <div class="featured-news mb-5">
+                        <div class="card border-0 shadow-sm overflow-hidden">
+                            <div class="featured-img-container">
+                                <img src="{% static 'images/i.jpeg' %}" class="card-img-top featured-img" alt="Actualité à la une">
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="news-meta d-flex align-items-center mb-3">
+                                    <span class="badge bg-primary me-3">À la une</span>
+                                    <span class="text-muted"><i class="far fa-calendar me-2"></i>15 Octobre 2025</span>
+                                </div>
+                                <h3 class="card-title h4">Message du président provincial pour le lancement des sensibilisations</h3>
+                                <p class="card-text">Le président provincial de RENEMICO a officiellement lancé la campagne de sensibilisation des négociants à travers différents sites miniers. Dans son discours, il a souligné l'importance de cette initiative pour structurer le secteur, améliorer les conditions de travail et maximiser les retombées économiques pour les communautés locales et l'ensemble de la province.</p>
+                                <a href="#" class="btn btn-outline-primary mt-3">Lire la suite</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Grid -->
+                    <h3 class="mb-4">Toutes les actualités</h3>
+                    <div class="row">
+                        <!-- News Item 1 - Première réunion du comité directeur -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card news-card h-100 border-0 shadow-sm overflow-hidden">
+                                <div class="news-img-container">
+                                    <img src="{% static 'images/e.jpeg' %}" class="card-img-top news-img" alt="Première réunion du comité directeur">
+                                </div>
+                                <div class="card-body">
+                                    <div class="news-meta d-flex align-items-center mb-2">
+                                        <span class="text-muted small"><i class="far fa-calendar me-2"></i>10 Juillet 2025</span>
+                                    </div>
+                                    <h4 class="card-title h5">Première réunion du comité directeur</h4>
+                                    <p class="card-text">Le nouveau comité directeur de RENEMICO a tenu sa première réunion de travail pour définir les modalités de fonctionnement de la structure après les élections.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Lire plus</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 2 - Sensibilisation des négociants SHABARA -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card news-card h-100 border-0 shadow-sm overflow-hidden">
+                                <div class="news-img-container">
+                                    <img src="{% static 'images/h.jpeg' %}" class="card-img-top news-img" alt="Sensibilisation des négociants SHABARA">
+                                </div>
+                                <div class="card-body">
+                                    <div class="news-meta d-flex align-items-center mb-2">
+                                        <span class="text-muted small"><i class="far fa-calendar me-2"></i>5 Juillet 2025</span>
+                                    </div>
+                                    <h4 class="card-title h5">Sensibilisation des négociants à SHABARA</h4>
+                                    <p class="card-text">Une campagne de sensibilisation a été menée auprès des négociants du site minier artisanal de SHABARA à KAWAMA.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Lire plus</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 3 - Sensibilisation des négociants Menuiserie -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card news-card h-100 border-0 shadow-sm overflow-hidden">
+                                <div class="news-img-container">
+                                    <img src="{% static 'images/d.jpeg' %}" class="card-img-top news-img" alt="Sensibilisation des négociants Menuiserie">
+                                </div>
+                                <div class="card-body">
+                                    <div class="news-meta d-flex align-items-center mb-2">
+                                        <span class="text-muted small"><i class="far fa-calendar me-2"></i>28 Juillet 2025</span>
+                                    </div>
+                                    <h4 class="card-title h5">Sensibilisation des négociants de Menuiserie</h4>
+                                    <p class="card-text">RENEMICO a organisé une séance de sensibilisation à destination des négociants opérant sur le site de Menuiserie.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Lire plus</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News Item 4 - Message du président provincial -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card news-card h-100 border-0 shadow-sm overflow-hidden">
+                                <div class="news-img-container">
+                                    <img src="{% static 'images/i.jpeg' %}" class="card-img-top news-img" alt="Message du président provincial">
+                                </div>
+                                <div class="card-body">
+                                    <div class="news-meta d-flex align-items-center mb-2">
+                                        <span class="text-muted small"><i class="far fa-calendar me-2"></i>27 Août 2025</span>
+                                    </div>
+                                    <h4 class="card-title h5">Message du président provincial</h4>
+                                    <p class="card-text">Le président provincial de RENEMICO a officiellement lancé la campagne de sensibilisation des négociants.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Lire plus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Newsletter Subscription -->
+                    <div class="card newsletter-card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-3">Restez informé</h4>
+                            <p class="card-text mb-3">Abonnez-vous à notre newsletter pour recevoir les dernières actualités.</p>
+                            <form>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="newsletterEmail" placeholder="Votre adresse email" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">S'abonner</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-3">Catégories</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Sensibilisations
+                                    <span class="badge bg-primary rounded-pill">4</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Réunions
+                                    <span class="badge bg-primary rounded-pill">2</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Événements
+                                    <span class="badge bg-primary rounded-pill">3</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Communiqués
+                                    <span class="badge bg-primary rounded-pill">5</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent News -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-3">Actualités récentes</h4>
+                            <div class="recent-news-item mb-3 pb-3 border-bottom">
+                                <h5 class="h6 mb-1">Sensibilisation des négociants à SHABARA</h5>
+                                <p class="small text-muted mb-0"><i class="far fa-calendar me-1"></i>5 Octobre 2023</p>
+                            </div>
+                            <div class="recent-news-item mb-3 pb-3 border-bottom">
+                                <h5 class="h6 mb-1">Première réunion du comité directeur</h5>
+                                <p class="small text-muted mb-0"><i class="far fa-calendar me-1"></i>10 Octobre 2023</p>
+                            </div>
+                            <div class="recent-news-item">
+                                <h5 class="h6 mb-1">Message du président provincial</h5>
+                                <p class="small text-muted mb-0"><i class="far fa-calendar me-1"></i>15 Octobre 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .featured-img-container {
+        height: 400px;
+        overflow: hidden;
+    }
+    
+    .news-img-container {
+        height: 250px;
+        overflow: hidden;
+    }
+    
+    .featured-img, .news-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .news-card:hover .news-img,
+    .featured-news .card:hover .featured-img {
+        transform: scale(1.05);
+    }
+    
+    .section-title {
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #0d6efd;
+    }
+    
+    .breadcrumb-title {
+        font-weight: 700;
+        color: #333;
+    }
+    
+    .breadcrumb-section {
+        background-color: #f8f9fa;
+        padding: 30px 0;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Scripts spécifiques à la page d'actualités
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation des cartes d'actualités au survol
+        const newsCards = document.querySelectorAll('.news-card, .event-card');
+        newsCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Gestion de l'abonnement à la newsletter
+        const newsletterForm = document.querySelector('.newsletter-card form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('newsletterEmail').value;
+                
+                // En conditions réelles, vous enverriez l'email au serveur
+                alert('Merci pour votre abonnement! Vous recevrez nos actualités à: ' + email);
+                newsletterForm.reset();
+            });
+        }
+    });
+</script>
+{% endblock %}

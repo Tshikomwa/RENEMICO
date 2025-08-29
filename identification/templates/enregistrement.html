@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Membre</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        :root {
+            --bleu: #0d6efd;
+            --noir: #000000;
+            --blanc: #f7f7f2;
+        }
+        
+        body {
+            background-color: var(--blanc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            max-width: 1000px;
+            background-color: var(--blanc);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        h2 {
+            color: var(--noir);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        label {
+            font-weight: 600;
+            color: var(--noir);
+            margin-bottom: 8px;
+        }
+        
+        input, select, textarea {
+            background-color: var(--blanc);
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--bleu);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        
+        input[type="text"], 
+        input[type="date"], 
+        input[type="email"],
+        input[type="tel"],
+        input[type="file"], 
+        select, 
+        textarea {
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .btn-submit {
+            background-color: var(--bleu);
+            color: var(--blanc);
+            font-weight: 600;
+            padding: 12px 30px;
+            border: none;
+            font-size: 18px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-2px);
+        }
+        
+        .btn-back {
+            background-color: var(--noir);
+            color: var(--blanc);
+            font-weight: 600;
+            padding: 12px 30px;
+            border: none;
+            font-size: 18px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-back:hover {
+            background-color: #424649;
+            color: var(--blanc);
+            transform: translateY(-2px);
+        }
+        
+        .form-error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .section-title {
+            color: var(--bleu);
+            font-weight: 600;
+            margin: 30px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--bleu);
+            font-size: 20px;
+        }
+        
+        .img-preview {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+        
+        .invalid-feedback {
+            display: block;
+        }
+        
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>FORMULAIRE D'ENREGISTREMENT</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if echec_enregistrement %}
+                <div class="alert alert-danger" role="alert">
+                    Veuillez corriger les erreurs ci-dessous.
+                </div>
+            {% endif %}
+
+            <!-- Informations de base -->
+            <h4 class="section-title">INFORMATIONS DE BASE</h4>
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                    <label for="id_nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control text-uppercase {% if form.nom.errors %}is-invalid{% endif %}" 
+                           placeholder="Entrez votre nom" id="id_nom" name="nom" 
+                           value="{{ form.nom.value|default_if_none:''|upper }}">
+                    {% for error in form.nom.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="id_post_nom" class="form-label">Post-nom</label>
+                    <input type="text" class="form-control text-uppercase {% if form.post_nom.errors %}is-invalid{% endif %}" 
+                           placeholder="Entrez votre post-nom" id="id_post_nom" name="post_nom" 
+                           value="{{ form.post_nom.value|default_if_none:''|upper }}">
+                    {% for error in form.post_nom.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="id_prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control text-uppercase {% if form.prenom.errors %}is-invalid{% endif %}" 
+                           placeholder="Entrez votre prénom" id="id_prenom" name="prenom" 
+                           value="{{ form.prenom.value|default_if_none:''|upper }}">
+                    {% for error in form.prenom.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <label for="id_sexe" class="form-label">Sexe</label>
+                    <select class="form-control {% if form.sexe.errors %}is-invalid{% endif %}" id="id_sexe" name="sexe">
+                        <option value="">Sélectionnez...</option>
+                        <option value="M" {% if form.sexe.value == "M" %}selected{% endif %}>Masculin</option>
+                        <option value="F" {% if form.sexe.value == "F" %}selected{% endif %}>Féminin</option>
+                    </select>
+                    {% for error in form.sexe.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_categorie" class="form-label">Catégorie</label>
+                    <select class="form-control {% if form.categorie.errors %}is-invalid{% endif %}" id="id_categorie" name="categorie">
+                        <option value="">Sélectionnez...</option>
+                        <option value="Membre Honneur" {% if form.categorie.value == "Membre Honneur" %}selected{% endif %}>Membre d'Honneur</option>
+                        <option value="Membre Effectif" {% if form.categorie.value == "Membre Effectif" %}selected{% endif %}>Membre Effectif</option>
+                        <option value="Membre Fondateur" {% if form.categorie.value == "Membre Fondateur" %}selected{% endif %}>Membre Fondateur</option>
+                        <option value="Membre Co-fondateur" {% if form.categorie.value == "Membre Co-fondateur" %}selected{% endif %}>Membre Co-fondateur</option>
+                    </select>
+                    {% for error in form.categorie.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="id_fonction" class="form-label">Fonction</label>
+                    <input type="text" class="form-control text-uppercase {% if form.fonction.errors %}is-invalid{% endif %}" 
+                           placeholder="Entrez votre fonction" id="id_fonction" name="fonction" 
+                           value="{{ form.fonction.value|default_if_none:''|upper }}">
+                    {% for error in form.fonction.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="id_site" class="form-label">Site</label>
+                    <input type="text" class="form-control text-uppercase {% if form.site.errors %}is-invalid{% endif %}" 
+                           placeholder="Entrez votre site (secteur d'activité)" id="id_site" name="site" 
+                           value="{{ form.site.value|default_if_none:''|upper }}">
+                    {% for error in form.site.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_date_naissance" class="form-label">Date naissance</label>
+                    <input type="text" class="form-control date-picker {% if form.date_naissance.errors %}is-invalid{% endif %}" 
+                           placeholder="JJ-MM-AAAA" id="id_date_naissance" name="date_naissance" 
+                           value="{{ form.date_naissance.value|default_if_none:'' }}">
+                    {% for error in form.date_naissance.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_province" class="form-label">Province</label>
+                    <select class="form-control {% if form.province.errors %}is-invalid{% endif %}" id="id_province" name="province">
+                        <option value="">Sélectionnez...</option>
+                        {% for code, name in form.fields.province.choices %}
+                            <option value="{{ code }}" {% if form.province.value == code %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% for error in form.province.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="id_lieu_naissance" class="form-label">Lieu de naissance</label>
+                <input type="text" class="form-control text-uppercase {% if form.lieu_naissance.errors %}is-invalid{% endif %}" 
+                       placeholder="Ville/territoire" id="id_lieu_naissance" name="lieu_naissance" 
+                       value="{{ form.lieu_naissance.value|default_if_none:''|upper }}">
+                {% for error in form.lieu_naissance.errors %}
+                    <div class="form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <!-- Informations de contact -->
+            <h4 class="section-title">INFORMATIONS DE CONTACT</h4>
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <label for="id_adresse" class="form-label">Adresse</label>
+                    <textarea class="form-control text-uppercase {% if form.adresse.errors %}is-invalid{% endif %}" 
+                              placeholder="Votre adresse complète" id="id_adresse" name="adresse" 
+                              rows="3">{{ form.adresse.value|default_if_none:''|upper }}</textarea>
+                    {% for error in form.adresse.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_telephone" class="form-label">Téléphone</label>
+                    <input type="tel" class="form-control {% if form.telephone.errors %}is-invalid{% endif %}" 
+                           placeholder="Numéro de téléphone" id="id_telephone" name="telephone" 
+                           value="{{ form.telephone.value|default_if_none:'' }}">
+                    {% for error in form.telephone.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" 
+                           placeholder="Votre email" id="id_email" name="email" 
+                           value="{{ form.email.value|default_if_none:'' }}">
+                    {% for error in form.email.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Profession et autres -->
+            <h4 class="section-title">AUTRES INFORMATIONS</h4>
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <label for="id_profession" class="form-label">Profession</label>
+                    <input type="text" class="form-control text-uppercase {% if form.profession.errors %}is-invalid{% endif %}" 
+                           placeholder="Votre profession" id="id_profession" name="profession" 
+                           value="{{ form.profession.value|default_if_none:''|upper }}">
+                    {% for error in form.profession.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_observations" class="form-label">Observations</label>
+                    <textarea class="form-control {% if form.observations.errors %}is-invalid{% endif %}" 
+                              placeholder="Remarques éventuelles" id="id_observations" name="observations" 
+                              rows="3">{{ form.observations.value|default_if_none:'' }}</textarea>
+                    {% for error in form.observations.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Photo -->
+            <h4 class="section-title">IDENTIFICATION</h4>
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <label for="id_photo" class="form-label">Photo</label>
+                    <input type="file" class="form-control {% if form.photo.errors %}is-invalid{% endif %}" 
+                           id="id_photo" name="photo" accept="image/*">
+                    {% for error in form.photo.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                    <div class="mt-3">
+                        <img id="photoPreview" class="img-preview" style="max-width: 200px; display: none;"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statut -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <label for="id_statut" class="form-label">Statut</label>
+                    {{ form.statut }}
+                    {% for error in form.statut.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-flex justify-content-between mt-5">
+                <button type="submit" class="btn btn-submit">ENREGISTRER</button>
+
+                <a href="{% url 'operateur_dashboard' %}" class="btn btn-primary btn-lg me-2">Tableau de bord</a>
+
+                <a href="{% url 'identification:dashboard' %}" class="btn btn-back">RETOUR</a>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script pour l'aperçu de la photo -->
+    <script>
+        document.getElementById('id_photo').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('photoPreview');
+            
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- Script pour le date picker -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr('.date-picker', {
+                dateFormat: 'd-m-Y',
+                locale: 'fr'
+            });
+        });
+    </script>
+
+    <!-- Script pour convertir automatiquement en majuscules -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélectionner tous les champs qui doivent être en majuscules
+            const uppercaseFields = document.querySelectorAll('.text-uppercase');
+            
+            // Ajouter un écouteur d'événements à chaque champ
+            uppercaseFields.forEach(function(field) {
+                field.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+                
+                // S'assurer que la valeur initiale est en majuscules
+                if (field.value) {
+                    field.value = field.value.toUpperCase();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

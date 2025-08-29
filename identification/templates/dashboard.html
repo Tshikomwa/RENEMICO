@@ -1,0 +1,441 @@
+{% extends 'login/base.html' %}
+
+{% block title %}Tableau de bord | Plateforme PRO{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- En-tête principal -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-id-card-alt fa-3x text-primary"></i>
+                </div>
+                <div>
+                    <h1 class="h2 mb-0 fw-bold">Tableau de bord</h1>
+                    <p class="text-muted mb-0">Gestion des membres et de la trésorerie</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-md-end mt-3 mt-md-0">
+            {% if user.is_authenticated %}
+                {% if user.level == 'OPERATEUR' %}
+                    <a href="{% url 'operateur_dashboard' %}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                    </a>
+                {% elif user.level == 'PRESIDENT_NATIONAL' %}
+                    <a href="{% url 'president_national_dashboard' %}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                    </a>
+                {% elif user.level == 'PRESIDENT_PROVINCIAL' %}
+                    <a href="{% url 'president_provincial_dashboard' %}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                    </a>
+                {% elif user.level == 'SECRETAIRE_GENERAL' %}
+                    <a href="{% url 'secretaire_general_dashboard' %}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                    </a>
+                {% elif user.level == 'ADMIN_SYSTEME' %}
+                    <a href="{% url 'admin_systeme_dashboard' %}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                    </a>
+                {% endif %}
+            {% endif %}
+
+            <a href="{% url 'identification:liste' %}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-list me-2"></i>Liste des membres
+            </a>
+        </div>
+    </div>
+
+    <!-- Cartes de statistiques résumées -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4 mb-0">
+                    <i class="fas fa-id-card me-2 text-info"></i> Aperçu Cartes "Identification"   
+                </h2>
+            </div>
+        </div>
+    <div class="row mb-4">
+        <!-- Carte Membres actifs -->
+        <div class="col-xl-2 col-md-4 col-6 mb-3">
+            <div class="card bg-primary text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1">Membres actifs</h6>
+                            <h3 class="mb-0">{{ membres_actifs }}</h3>
+                        </div>
+                        <div class="bg-white-20 p-2 rounded-circle">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Membres inactifs -->
+        <div class="col-xl-2 col-md-4 col-6 mb-3">
+            <div class="card bg-secondary text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1">Membres inactifs</h6>
+                            <h3 class="mb-0">{{ membres_inactifs }}</h3>
+                        </div>
+                        <div class="bg-white-20 p-2 rounded-circle">
+                            <i class="fas fa-user-times"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Cartes valides -->
+        <div class="col-xl-2 col-md-4 col-6 mb-3">
+            <div class="card bg-success text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1">Cartes valides</h6>
+                            <h3 class="mb-0">{{ cartes_valides }}</h3>
+                        </div>
+                        <div class="bg-white-20 p-2 rounded-circle">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Cartes expirées -->
+        <div class="col-xl-2 col-md-4 col-6 mb-3">
+            <div class="card bg-danger text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1">Cartes expirées</h6>
+                            <h3 class="mb-0">{{ cartes_expirees }}</h3>
+                        </div>
+                        <div class="bg-white-20 p-2 rounded-circle">
+                            <i class="fas fa-id-card-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Cartes renouvelées -->
+        <div class="col-xl-2 col-md-4 col-6 mb-3">
+            <div class="card bg-warning text-dark shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-dark-50 mb-1">Cartes renouvelées</h6>
+                            <h3 class="mb-0">{{ cartes_renouvelees }}</h3>
+                        </div>
+                        <div class="bg-dark-10 p-2 rounded-circle">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques financières -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4 mb-0">
+                    <i class="fas fa-chart-line me-2 text-info"></i> Aperçu Financier
+                </h2>
+            </div>
+        </div>
+        
+        <!-- Carte Total Entrées -->
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="card bg-success text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-arrow-down me-2"></i>Total Entrées</h6>
+                            <h3 class="mb-0">{{ total_entrees|floatformat:0 }} $</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Total Sorties -->
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="card bg-danger text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-arrow-up me-2"></i>Total Sorties</h6>
+                            <h3 class="mb-0">{{ total_sorties|floatformat:0 }} $</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Solde Disponible -->
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="card bg-primary text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-wallet me-2"></i>Solde Disponible</h6>
+                            <h3 class="mb-0">{{ solde|floatformat:0 }} $</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carte Total Contributions -->
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="card bg-info text-white shadow-sm h-100 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-hand-holding-usd me-2"></i>Total Contributions</h6>
+                            <h3 class="mb-0">{{ total_contributions|floatformat:0 }} $</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Identification des Membres -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4 mb-0">
+                    <i class="fas fa-id-card-alt me-2 text-primary"></i> Identification des Membres
+                </h2>
+                <a href="{% url 'identification:liste' %}" class="btn btn-sm btn-outline-primary">
+                    Voir tout <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if user.level == 'ADMIN_SYSTEME' or user.level == 'OPERATEUR' %}
+    <!-- Cartes de fonctionnalités Identification -->
+    <div class="row g-4 mb-5">
+        <!-- Carte Enregistrement -->
+        <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                            <i class="fas fa-user-plus fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="h5 mb-0">Enregistrement</h3>
+                    </div>
+                    <p class="text-muted mb-4">Enregistrement des nouveaux membres dans le système et gestion des profils existants.</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'identification:enregistrement_membre' %}" class="btn btn-outline-primary text-start py-3">
+                            <i class="fas fa-plus-circle me-2"></i> Créer un nouveau profil
+                        </a>
+                        <a href="{% url 'identification:liste' %}" class="btn btn-outline-secondary text-start py-3">
+                            <i class="fas fa-search me-2"></i> Rechercher un membre
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Identifiants -->
+        <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-success bg-opacity-10 p-3 rounded-circle me-3">
+                            <i class="fas fa-qrcode fa-2x text-success"></i>
+                        </div>
+                        <h3 class="h5 mb-0">Identifiants</h3>
+                    </div>
+                    <p class="text-muted mb-4">Gestion des cartes d'identité, badges et identifiants numériques des membres.</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'identification:duplicata_creer' %}" class="btn btn-outline-success text-start py-3">
+                            <i class="fas fa-id-card me-2"></i> Générer une nouvelle carte
+                        </a>
+
+                        <a href="{% url 'identification:cartes_renouvelees_liste' %}" class="btn btn-outline-secondary text-start py-3">
+                            <i class="fas fa-sync-alt me-2"></i> Renouveler une carte
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Section Gestion Financière -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4 mb-0">
+                    <i class="fas fa-dollar-sign me-2 text-success"></i> Gestion Financière
+                </h2>
+                <a href="{% url 'finance:liste_operations' %}" class="btn btn-sm btn-outline-success">
+                    Voir tout <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cartes de fonctionnalités Finance -->
+    <div class="row g-4 mb-5">
+        <!-- Carte Cotisations -->
+        <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                            <i class="fas fa-dollar-sign fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="h5 mb-0">Cotisation Mensuelle</h3>
+                    </div>
+                    <p class="text-muted mb-4">Gestion des cotisations mensuelles des membres.</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'finance:liste_membres_finance' %}" class="btn btn-outline-primary text-start py-3">
+                            <i class="fas fa-list me-2"></i> Liste des membres / Cotisations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Trésorerie -->
+        <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm hover-effect">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-success bg-opacity-10 p-3 rounded-circle me-3">
+                            <i class="fas fa-cash-register fa-2x text-success"></i>
+                        </div>
+                        <h3 class="h5 mb-0">Trésorerie</h3>
+                    </div>
+                    <p class="text-muted mb-4">Gestion des entrées et des sorties en cash.</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'finance:liste_operations' %}" class="btn btn-outline-success text-start py-3">
+                            <i class="fas fa-exchange-alt me-2"></i> Entrées et Sorties
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dashboard-card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 12px;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .hover-effect {
+        transition: all 0.3s ease;
+        border-radius: 12px;
+    }
+    
+    .hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .bg-opacity-10 {
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+    }
+    
+    .bg-success.bg-opacity-10 {
+        background-color: rgba(var(--bs-success-rgb), 0.1);
+    }
+    
+    .btn-outline-primary, .btn-outline-secondary, .btn-outline-success {
+        transition: all 0.3s ease;
+        border-radius: 8px;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: var(--bs-primary);
+        color: white;
+    }
+    
+    .btn-outline-success:hover {
+        background-color: var(--bs-success);
+        color: white;
+    }
+    
+    .bg-white-20 {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .bg-dark-10 {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .statistics-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .stat-item {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--bs-primary);
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}

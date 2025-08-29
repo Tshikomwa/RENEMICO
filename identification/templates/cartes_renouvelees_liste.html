@@ -1,0 +1,32 @@
+{% extends "login/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Liste des cartes renouvelées</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nom complet</th>
+                <th>Code</th>
+                <th>Date de mise à jour</th>
+                <th>Date d'expiration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for membre in membres %}
+            <tr>
+                <td>{{ membre.nom }} {{ membre.post_nom }}</td>
+                <td>{{ membre.code }}</td>
+                <td>{{ membre.date_mise_a_jour|date:"d M Y" }}</td>
+                <td>{{ membre.date_expiration|date:"d M Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Aucune carte renouvelée pour le moment.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Liste des opérations{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- En-tête de page -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1"><i class="fas fa-history me-2 text-primary"></i>Historique des opérations</h2>
+        </div>
+        {% if user.level == "OPERATEUR" %}
+        <a href="{% url 'finance:ajouter_operation' %}" class="btn btn-primary btn-lg shadow-sm">
+            <i class="fas fa-plus-circle me-2"></i> Nouvelle opération
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Cartes de résumé -->
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6 mb-3">
+            <div class="card bg-success text-white shadow-sm animate-fade" style="animation-delay: 0.1s">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-arrow-down me-2"></i>Total Entrées</h6>
+                            <h3 class="mb-0">{{ total_entrees }} USD</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-download fa-2x"></i>
+                        </div>
+                    </div>
+                    <p class="small mb-0 mt-2"><i class="fas fa-calendar me-1"></i></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-3">
+            <div class="card bg-danger text-white shadow-sm animate-fade" style="animation-delay: 0.2s">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-arrow-up me-2"></i>Total Sorties</h6>
+                            <h3 class="mb-0">{{ total_sorties }} USD</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-upload fa-2x"></i>
+                        </div>
+                    </div>
+                    <p class="small mb-0 mt-2"><i class="fas fa-calendar me-1"></i></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-12 mb-3">
+            <div class="card bg-primary text-white shadow-sm animate-fade" style="animation-delay: 0.3s">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-white-50 mb-1"><i class="fas fa-wallet me-2"></i>Solde Disponible</h6>
+                            <h3 class="mb-0">{{ solde }} USD</h3>
+                        </div>
+                        <div class="bg-white-20 p-3 rounded-circle">
+                            <i class="fas fa-piggy-bank fa-2x"></i>
+                        </div>
+                    </div>
+                    <p class="small mb-0 mt-2"><i class="fas fa-info-circle me-1"></i> Solde en temps réel</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtres et exports -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="card-title mb-3 mb-md-0"><i class="fas fa-filter me-2 text-primary"></i>Filtres et exports</h5>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-file-export me-1"></i> Exporter
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'finance:export_excel_operations' %}" target="_blank"><i class="fas fa-file-excel text-success me-2"></i> Excel</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Exports PDF</h6></li>
+                            <li><a class="dropdown-item" href="{% url 'finance:export_pdf_operations' 'journalier' %}" target="_blank"><i class="fas fa-file-pdf text-danger me-2"></i> Journalier</a></li>
+                            <li><a class="dropdown-item" href="{% url 'finance:export_pdf_operations' 'mensuel' %}" target="_blank"><i class="fas fa-file-pdf text-danger me-2"></i> Mensuel</a></li>
+                            <li><a class="dropdown-item" href="{% url 'finance:export_pdf_operations' 'trimestriel' %}" target="_blank"><i class="fas fa-file-pdf text-danger me-2"></i> Trimestriel</a></li>
+                            <li><a class="dropdown-item" href="{% url 'finance:export_pdf_operations' 'semestriel' %}" target="_blank"><i class="fas fa-file-pdf text-danger me-2"></i> Semestriel</a></li>
+                            <li><a class="dropdown-item" href="{% url 'finance:export_pdf_operations' 'annuel' %}" target="_blank"><i class="fas fa-file-pdf text-danger me-2"></i> Annuel</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Barre de recherche -->
+            <div class="row mt-3">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" class="form-control" placeholder="Rechercher par motif, montant ou bénéficiaire..." id="searchInput">
+                        <button class="btn btn-outline-secondary" type="button" id="clearSearch">Effacer</button>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-2 mt-md-0">
+                    <select class="form-select" id="typeFilter">
+                        <option value="">Tous les types</option>
+                        <option value="ENTREE">Entrées seulement</option>
+                        <option value="SORTIE">Sorties seulement</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des opérations -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" id="operationsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4"><i class="fas fa-calendar me-1"></i> Date</th>
+                            <th><i class="fas fa-file-alt me-1"></i> Motif</th>
+                            <th class="text-end"><i class="fas fa-dollar-sign me-1"></i> Montant</th>
+                            <th><i class="fas fa-user me-1"></i> Perçu par</th>
+                            <th><i class="fas fa-exchange-alt me-1"></i> Type</th>
+                            <th class="text-center pe-4"><i class="fas fa-cog me-1"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for op in operations %}
+                            <tr class="animate-fade" style="animation-delay: {{ forloop.counter0|add:0.1 }}s">
+                                <td class="ps-4 fw-medium">{{ op.date|date:"d/m/Y" }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="icon-container me-3">
+                                            {% if op.type_operation == 'ENTREE' %}
+                                                <i class="fas fa-download text-success"></i>
+                                            {% else %}
+                                                <i class="fas fa-upload text-danger"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div>{{ op.motif }}</div>
+                                    </div>
+                                </td>
+                                <td class="text-end fw-bold {% if op.type_operation == 'ENTREE' %}text-success{% else %}text-danger{% endif %}">
+                                    {{ op.montant }} USD
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark">
+                                        <i class="fas fa-user-circle me-1"></i> {{ op.percu_par }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if op.type_operation == 'ENTREE' %}
+                                        <span class="badge bg-success bg-opacity-10 text-success py-2 px-3 rounded-pill">
+                                            <i class="fas fa-arrow-down me-1"></i> Entrée
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-danger bg-opacity-10 text-danger py-2 px-3 rounded-pill">
+                                            <i class="fas fa-arrow-up me-1"></i> Sortie
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center pe-4">
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'finance:detail_operation' op.pk %}" class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        {% if user.level == "ADMIN_SYSTEME" %}
+                                        <a href="{% url 'finance:modifier_operation' op.pk %}" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'finance:supprimer_operation' op.pk %}" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Supprimer">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <div class="py-4">
+                                        <i class="fas fa-file-invoice fa-4x mb-3 text-muted"></i>
+                                        <h5 class="text-muted">Aucune opération enregistrée</h5>
+                                        <p class="text-muted">Commencez par ajouter votre première opération financière</p>
+                                        {% if user.level == "OPERATEUR" %}
+                                        <a href="{% url 'finance:ajouter_operation' %}" class="btn btn-primary mt-2">
+                                            <i class="fas fa-plus-circle me-2"></i> Ajouter une opération
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if operations.has_other_pages %}
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div class="text-muted">
+            Affichage de {{ operations.start_index }} à {{ operations.end_index }} sur {{ operations.paginator.count }} opérations
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if operations.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ operations.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                {% endif %}
+                
+                {% for i in operations.paginator.page_range %}
+                    {% if operations.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if operations.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ operations.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card {
+        border: none;
+        border-radius: 12px;
+    }
+    
+    .table th {
+        border: none;
+        font-weight: 600;
+        padding: 1rem;
+        background-color: #f8f9fa !important;
+    }
+    
+    .table td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-color: rgba(0, 0, 0, 0.03);
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(var(--primary-color-rgb), 0.03);
+        transform: translateX(5px);
+        transition: all 0.2s ease;
+    }
+    
+    .badge {
+        font-size: 0.85em;
+        font-weight: 500;
+    }
+    
+    .icon-container {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(var(--primary-color-rgb), 0.1);
+    }
+    
+    .bg-white-20 {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .animate-fade {
+        animation: fadeIn 0.5s ease forwards;
+        opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 0;
+    }
+    
+    .btn-group .btn {
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialiser les tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+        // Fonctionnalité de recherche
+        const searchInput = document.getElementById('searchInput');
+        const typeFilter = document.getElementById('typeFilter');
+        const clearSearch = document.getElementById('clearSearch');
+        const table = document.getElementById('operationsTable');
+        const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        
+        function filterTable() {
+            const searchText = searchInput.value.toLowerCase();
+            const filterType = typeFilter.value;
+            
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let showRow = true;
+                
+                // Filtre par texte
+                if (searchText) {
+                    let rowContainsText = false;
+                    for (let j = 0; j < cells.length; j++) {
+                        if (cells[j].textContent.toLowerCase().includes(searchText)) {
+                            rowContainsText = true;
+                            break;
+                        }
+                    }
+                    showRow = rowContainsText;
+                }
+                
+                // Filtre par type
+                if (showRow && filterType) {
+                    const typeCell = cells[4]; // La cellule de type
+                    const isEntry = typeCell.textContent.includes('Entrée');
+                    if ((filterType === 'ENTREE' && !isEntry) || (filterType === 'SORTIE' && isEntry)) {
+                        showRow = false;
+                    }
+                }
+                
+                rows[i].style.display = showRow ? '' : 'none';
+            }
+        }
+        
+        searchInput.addEventListener('keyup', filterTable);
+        typeFilter.addEventListener('change', filterTable);
+        
+        clearSearch.addEventListener('click', function() {
+            searchInput.value = '';
+            typeFilter.selectedIndex = 0;
+            filterTable();
+        });
+    });
+</script>
+{% endblock %}

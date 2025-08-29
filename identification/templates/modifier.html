@@ -1,0 +1,398 @@
+{% extends 'login/base.html' %}
+
+{% block title %}Modifier Membre | Plateforme PRO{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- En-tête -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h2 mb-0">
+                        <i class="fas fa-user-edit text-primary me-2"></i>Modifier le membre
+                    </h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'identification:liste' %}">Membres</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Modifier {{ membre.nom_complet }}</li>
+                        </ol>
+                    </nav>
+                </div>
+                <a href="{% url 'identification:liste' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i> Retour
+                </a>
+            </div>
+
+            <!-- Carte principale -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="h5 mb-0">Informations du membre</h2>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <!-- Colonne Photo -->
+                        <div class="col-md-3 text-center mb-4 mb-md-0">
+                            <div class="position-relative mb-3">
+                                {% if membre.photo %}
+                                    <img src="{{ membre.photo.url }}" alt="Photo" 
+                                         class="img-thumbnail rounded-circle member-photo" 
+                                         id="photoPreview">
+                                {% else %}
+                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center member-photo-placeholder">
+                                        <i class="fas fa-user fa-3x text-muted"></i>
+                                    </div>
+                                {% endif %}
+                                <span class="position-absolute top-0 end-0 badge 
+                                    {% if membre.statut == 'actif' %}bg-success{% else %}bg-danger{% endif %}"
+                                    style="transform: translate(30%, -30%);">
+                                    {{ membre.get_statut_display }}
+                                </span>
+                            </div>
+                            <p class="text-muted mb-2">Code: {{ membre.code }}</p>
+                            <div class="mt-3">
+                                <div class="file-upload-wrapper">
+                                    <label for="id_photo" class="btn btn-sm btn-outline-primary mb-2">
+                                        <i class="fas fa-camera me-1"></i> Changer la photo
+                                    </label>
+                                    {{ form.photo }}
+                                    <div class="form-text">JPG, PNG - max. 2MB</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Colonne Formulaire -->
+                        <div class="col-md-9">
+                            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                                               
+                                <div class="row g-3">
+                                    <!-- Section 1: Identité -->
+                                    <div class="col-12">
+                                        <h5 class="section-title"><i class="fas fa-id-card me-2"></i>Identité</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="form-label">Nom</label>
+                                        {{ form.nom }}
+                                        <div class="invalid-feedback">Veuillez saisir le nom.</div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="form-label">Post-nom</label>
+                                        {{ form.post_nom }}
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="form-label">Prénom</label>
+                                        {{ form.prenom }}
+                                        <div class="invalid-feedback">Veuillez saisir le prénom.</div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <label class="form-label">Sexe</label>
+                                        {{ form.sexe }}
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <label class="form-label">Date</label>
+                                        {{ form.date_naissance }}
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Lieu de naissance</label>
+                                        {{ form.lieu_naissance }}
+                                    </div>
+                                    
+                                    <!-- Section 2: Localisation -->
+                                    <div class="col-12 mt-4">
+                                        <h5 class="section-title"><i class="fas fa-map-marker-alt me-2"></i>Localisation</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Province</label>
+                                        {{ form.province }}
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Adresse</label>
+                                        {{ form.adresse }}
+                                    </div>
+                                    
+                                    <!-- Section 3: Contact -->
+                                    <div class="col-12 mt-4">
+                                        <h5 class="section-title"><i class="fas fa-phone-alt me-2"></i>Contact</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Téléphone</label>
+                                        {{ form.telephone }}
+                                        <div class="invalid-feedback">Format de téléphone invalide.</div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email</label>
+                                        {{ form.email }}
+                                        <div class="invalid-feedback">Format d'email invalide.</div>
+                                    </div>
+                                    
+                                    <!-- Section 4: Profession -->
+                                    <div class="col-12 mt-4">
+                                        <h5 class="section-title"><i class="fas fa-briefcase me-2"></i>Profession</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Profession</label>
+                                        {{ form.profession }}
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label">Catégorie</label>
+                                        {{ form.categorie }}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Fonction</label>
+                                        {{ form.fonction }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Site (Secteur d'Activité)</label>
+                                        {{ form.site }}
+                                    </div>
+                                    
+                                    <!-- Section 5: Dates importantes -->
+                                    <div class="col-12 mt-4">
+                                        <h5 class="section-title"><i class="fas fa-calendar-alt me-2"></i>Dates importantes</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="form-label">Date enregistrement</label>
+                                        <input type="text" class="form-control" 
+                                               value="{{ membre.date_enregistrement|date:'d/m/Y' }}" readonly>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="form-label">Date expiration</label>
+                                        <input type="text" class="form-control" 
+                                               value="{{ membre.date_expiration|date:'d/m/Y' }}" readonly>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <label class="form-label">Statut</label>
+                                        {{ form.statut }}
+                                    </div>
+                                    
+                                    <!-- Section 6: Autres informations -->
+                                    <div class="col-12 mt-4">
+                                        <h5 class="section-title"><i class="fas fa-info-circle me-2"></i>Autres informations</h5>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label class="form-label">Observations</label>
+                                        {{ form.observations }}
+                                    </div>
+                                    
+                                </div>
+
+                                <!-- Boutons d'action -->
+                                <div class="d-flex justify-content-between mt-5 pt-3 border-top">
+                                    <button type="button" onclick="window.location.reload()" 
+                                            class="btn btn-outline-danger">
+                                        <i class="fas fa-undo me-2"></i> Réinitialiser
+                                    </button>
+
+                                    <div>
+                                        <a href="{% url 'identification:liste' %}" class="btn btn-secondary me-2">
+                                            Annuler
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i> Enregistrer
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styles généraux améliorés */
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .card-header {
+        border-bottom: none;
+    }
+    
+    .section-title {
+        color: #495057;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e9ecef;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Amélioration des champs de formulaire */
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ced4da;
+        transition: all 0.2s ease;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+    
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #495057;
+    }
+    
+    /* Style pour la photo */
+    .member-photo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .member-photo:hover {
+        transform: scale(1.05);
+    }
+    
+    .member-photo-placeholder {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    
+    /* Amélioration du téléchargement de fichier */
+    .file-upload-wrapper {
+        position: relative;
+    }
+    
+    #id_photo {
+        position: absolute;
+        left: -9999px;
+    }
+    
+    /* Style pour les boutons */
+    .btn {
+        border-radius: 8px;
+        padding: 0.5rem 1.25rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-outline-primary:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Amélioration responsive */
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 1.5rem !important;
+        }
+        
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .d-flex.justify-content-between > div {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    /* Style pour les cases à cocher */
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+    }
+    
+    /* Animation pour les sections */
+    .col-12 {
+        transition: all 0.3s ease;
+    }
+    
+    /* Style pour les messages de validation */
+    .invalid-feedback {
+        display: none;
+        font-size: 0.875rem;
+    }
+    
+    .was-validated .form-control:invalid ~ .invalid-feedback,
+    .was-validated .form-control:valid ~ .valid-feedback {
+        display: block;
+    }
+</style>
+<script>
+    flatpickr(".date-picker", {
+    dateFormat: "d-m-Y",
+    maxDate: "today",
+    locale: "fr"
+});
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Validation des champs du formulaire
+        var forms = document.querySelectorAll('.needs-validation');
+        
+        Array.prototype.slice.call(forms).forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+        
+        // Prévisualisation de la photo
+        const photoInput = document.getElementById('id_photo');
+        const photoPreview = document.getElementById('photoPreview');
+        
+        if (photoInput && photoPreview) {
+            photoInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        photoPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+        
+        // Amélioration de l'UX pour les dates
+        const dateFields = document.querySelectorAll('input[type="date"]');
+        dateFields.forEach(field => {
+            field.classList.add('form-control');
+        });
+        
+        // Confirmation pour le bouton de réinitialisation
+        const resetButton = document.querySelector('button[type="reset"]');
+        if (resetButton) {
+            resetButton.addEventListener('click', function(e) {
+                if (!confirm('Voulez-vous vraiment réinitialiser tous les champs du formulaire ?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

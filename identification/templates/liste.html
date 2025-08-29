@@ -1,0 +1,425 @@
+{% extends 'login/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- En-tête avec statistiques -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1">Liste des Membres</h1>
+            <p class="text-muted">Total: {{ total_membres }} membres enregistrés</p>
+        </div>
+        <div class="d-flex gap-2">
+            <!-- Bouton Export Excel -->
+            <a href="{% url 'identification:export_excel' %}" class="btn btn-success">
+                <i class="fas fa-file-excel me-2"></i>Exporter Excel
+            </a>
+            {% if user.level == "ADMIN_SYSTEME" %}
+            <a href="{% url 'identification:enregistrement_membre' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Nouveau Membre
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Cartes de statistiques -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Membres Actifs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ membres_actifs }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Membres Inactifs</div>
+                            <div class="h5 mb-0 font-weight-bold text-danger-800">{{ membres_inactifs }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-times fa-2x text-danger opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Hommes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ hommes_count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-male fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Femmes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ femmes_count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-female fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtres de recherche -->
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body p-3 bg-light rounded">
+            <form method="get" class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fas fa-search text-primary"></i>
+                        </span>
+                        <input type="text" 
+                            name="search" 
+                            class="form-control border-start-0 ps-0" 
+                            placeholder="Rechercher par nom, post-nom ou prénom..." 
+                            value="{{ search_query }}"
+                            aria-label="Rechercher un membre">
+                    </div>
+                </div>
+                <div class="col-md-4 mt-2 mt-md-0">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="fas fa-search me-1"></i> Rechercher
+                        </button>
+                        {% if search_query %}
+                        <a href="?" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i> Effacer
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if show_finance_buttons %}
+        <a href="{% url 'finance:tous_historique_pdf' %}" 
+        class="btn btn-danger flex-grow-1">
+            <i class="fas fa-file-pdf me-2"></i> Rapport des cotisations de tous les membres — PDF
+        </a>
+
+        <a href="{% url 'finance:tous_historique_excel' %}" 
+        class="btn btn-success flex-grow-1">
+            <i class="fas fa-file-excel me-2"></i> Rapport des cotisations de tous les membres — Excel
+        </a>
+    {% endif %}
+
+
+
+    <!-- Tableau des membres -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Membres</h6>
+            <span class="badge bg-primary rounded-pill">{{ membres|length }} résultat(s)</span>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Code</th>
+                            <th>Nom Complet</th>
+                            <th>Sexe</th>
+                            <th>Catégorie</th>
+                            <th>Fonction</th>
+                            <th>Province</th>
+                            <th>QR Code</th>
+                            <th>Photo</th>
+                            <th>Statut</th>
+                            {% if user.level == "OPERATEUR" or user.level == "ADMIN_SYSTEME" or user.level == 'SECRETAIRE_GENERAL' %}
+                            <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for membre in membres %}
+                        <tr>
+                            <td class="fw-bold">{{ membre.code }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    {% if membre.photo %}
+                                    <img src="{{ membre.photo.url }}" alt="Photo" class="rounded-circle me-2" width="32" height="32" style="object-fit: cover;">
+                                    {% else %}
+                                    <div class="rounded-circle bg-secondary me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                        <i class="fas fa-user text-white" style="font-size: 14px;"></i>
+                                    </div>
+                                    {% endif %}
+                                    <div>
+                                        {{ membre.nom }} {{ membre.post_nom }} {{ membre.prenom }}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ membre.get_sexe_display }}</td>
+                            <td><span class="badge bg-info text-dark">{{ membre.get_categorie_display }}</span></td>
+                            <td>{{ membre.fonction }}</td>
+                            <td>{{ membre.get_province_display }}</td>
+                            <td class="text-center">
+                                {% if membre.qrcode %}
+                                <img src="{{ membre.qrcode.url }}" alt="QR Code" class="img-thumbnail qr-code" style="width: 50px; height: 50px;">
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if membre.photo %}
+                                <img src="{{ membre.photo.url }}" alt="Photo" class="img-thumbnail member-photo" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <span class="badge {% if membre.statut == 'actif' %}bg-success{% else %}bg-danger{% endif %}">
+                                    {% if membre.statut == "actif" %}Actif{% else %}Inactif{% endif %}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">  <!-- Utilisation de flexbox et gap pour espacement -->
+                                    {% if show_finance_buttons %}
+                                    {% if user.level == "OPERATEUR" or user.level == "ADMIN_SYSTEME" %}
+                                        <!-- Historique contributions -->
+                                        <a href="{% url 'finance:historique' membre.id %}" 
+                                        class="btn btn-outline-secondary btn-sm" 
+                                        title="Historique contributions">
+                                            <i class="fas fa-coins"></i>
+                                        </a>
+
+                                        <!-- Ajouter contribution -->
+                                        <a href="{% url 'finance:ajouter' membre.id %}" 
+                                        class="btn btn-outline-success btn-sm" 
+                                        title="Ajouter contribution">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+
+                                        <!-- Export PDF / Excel -->
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="Exports membre">
+                                            <a href="{% url 'finance:membre_historique_pdf' membre.id %}" 
+                                            class="btn btn-outline-danger" 
+                                            title="Exporter PDF">
+                                                <i class="fas fa-file-pdf me-1"></i>
+                                            </a>
+                                            <a href="{% url 'finance:membre_historique_excel' membre.id %}" 
+                                            class="btn btn-outline-success" 
+                                            title="Exporter Excel">
+                                                <i class="fas fa-file-excel me-1"></i>
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                    {% else %}
+                                </div>
+                                <div>
+                                        <!-- Boutons classiques pour identification -->
+                                            {% if user.level == "OPERATEUR" or user.level == "ADMIN_SYSTEME" or user.level == 'SECRETAIRE_GENERAL' %}
+                                            <a href="{% url 'identification:detail_membre' membre_id=membre.id %}" 
+                                            class="btn btn-outline-info btn-sm" 
+                                            title="Voir détails">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            {% endif %}
+
+                                            {% if user.level == "OPERATEUR" %}
+                                                <a href="{% url 'identification:generate_pdf' membre.id %}" 
+                                                class="btn btn-outline-warning btn-sm" 
+                                                title="Générer carte" target="_blank" rel="noopener noreferrer">
+                                                    <i class="fas fa-id-card"></i>
+                                                </a>
+
+                                                <a href="{% url 'identification:reactiver_carte' membre.id %}" 
+                                                class="btn btn-outline-success btn-sm" 
+                                                title="Réactiver carte">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if user.level == "ADMIN_SYSTEME" %}
+                                                <a href="{% url 'identification:modifier_membre' membre_id=membre.id %}" 
+                                                class="btn btn-outline-primary btn-sm" 
+                                                title="Modifier">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <a href="{% url 'identification:supprimer_membre' membre_id=membre.id %}" 
+                                                class="btn btn-outline-danger btn-sm" 
+                                                title="Supprimer">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            {% endif %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center py-4">
+                                <i class="fas fa-exclamation-circle fa-2x text-muted mb-2"></i>
+                                <p class="text-muted">Aucun membre trouvé</p>
+                                {% if search_query or selected_categorie or selected_province or selected_sexe %}
+                                <a href="?" class="btn btn-sm btn-outline-primary">Réinitialiser les filtres</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mt-4">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categorie %}&categorie={{ selected_categorie }}{% endif %}{% if selected_province %}&province={{ selected_province }}{% endif %}{% if selected_sexe %}&sexe={{ selected_sexe }}{% endif %}{% if selected_statut %}&statut={{ selected_statut }}{% endif %}" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categorie %}&categorie={{ selected_categorie }}{% endif %}{% if selected_province %}&province={{ selected_province }}{% endif %}{% if selected_sexe %}&sexe={{ selected_sexe }}{% endif %}{% if selected_statut %}&statut={{ selected_statut }}{% endif %}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categorie %}&categorie={{ selected_categorie }}{% endif %}{% if selected_province %}&province={{ selected_province }}{% endif %}{% if selected_sexe %}&sexe={{ selected_sexe }}{% endif %}{% if selected_statut %}&statut={{ selected_statut }}{% endif %}">{{ num }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categorie %}&categorie={{ selected_categorie }}{% endif %}{% if selected_province %}&province={{ selected_province }}{% endif %}{% if selected_sexe %}&sexe={{ selected_sexe }}{% endif %}{% if selected_statut %}&statut={{ selected_statut }}{% endif %}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_categorie %}&categorie={{ selected_categorie }}{% endif %}{% if selected_province %}&province={{ selected_province }}{% endif %}{% if selected_sexe %}&sexe={{ selected_sexe }}{% endif %}{% if selected_statut %}&statut={{ selected_statut }}{% endif %}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour agrandir les images -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Visualisation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.05);
+        transition: background-color 0.2s ease;
+    }
+    
+    .qr-code, .member-photo {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+    
+    .qr-code:hover, .member-photo:hover {
+        transform: scale(1.8);
+        z-index: 100;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    
+    .btn-group .btn {
+        border-radius: 0.25rem;
+        margin: 0 2px;
+    }
+    
+    .badge {
+        font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .btn-group .btn {
+            margin-bottom: 4px;
+        }
+        
+        .table-responsive {
+            font-size: 0.875rem;
+        }
+    }
+</style>
+
+<script>
+    // Agrandir les images au clic
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+        const modalImage = document.getElementById('modalImage');
+        
+        // Gérer les clics sur les photos et QR codes
+        document.querySelectorAll('.qr-code, .member-photo').forEach(img => {
+            img.addEventListener('click', function() {
+                modalImage.src = this.src;
+                imageModal.show();
+            });
+        });
+        
+        // Gestion des tooltips Bootstrap
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+{% endblock %}

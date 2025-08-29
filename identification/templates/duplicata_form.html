@@ -1,0 +1,29 @@
+{% extends "login/base.html" %}
+{% load static %}
+
+{% block title %}Créer un Duplicata{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Créer un Duplicata</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.membre.label_tag }}
+            {{ form.membre }}
+            {% if form.membre.errors %}
+                <div class="text-danger">{{ form.membre.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.numero_carte.label_tag }}
+            {{ form.numero_carte }}
+        </div>
+                
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{% url 'identification:dashboard' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

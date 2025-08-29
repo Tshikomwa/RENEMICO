@@ -1,0 +1,178 @@
+<!-- identification/templates/identification/detail.html -->
+{% extends 'login/base.html' %}
+
+{% block content %}
+<div class="content-area">
+    <div class="header mb-4">
+        <div class="page-title">
+            <h1>Détails du Membre</h1>
+            <p>Fiche complète d'identification</p>
+        </div>
+        <div class="action-buttons">
+            <a href="{% url 'identification:liste' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+            {% if user.level == "ADMIN_SYSTEME" %}
+            <a href="{% url 'identification:modifier_membre' membre_id=membre.id %}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            {% endif %}
+            {% if user.level == "OPERATEUR" or user.level == "ADMIN_SYSTEME" %}
+            <a href="{% url 'identification:generer_carte' membre_id=membre.id %}" class="btn btn-warning">
+                <i class="fas fa-id-card"></i> Générer carte
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Colonne gauche - Photo et QR Code -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Identification visuelle</h5>
+                </div>
+                <div class="card-body text-center">
+                    {% if membre.photo %}
+                        <div class="position-relative" style="width: 200px; margin: 0 auto;">
+                            <img src="{{ membre.photo.url }}" alt="Photo" class="img-thumbnail rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
+                            <!-- Badge de statut superposé -->
+                            <span class="position-absolute top-0 end-0 badge {% if membre.statut == 'actif' %}bg-success{% else %}bg-danger{% endif %}" style="transform: translate(25%, -25%);">
+                                {{ membre.get_statut_display }}
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="position-relative" style="width: 200px; margin: 0 auto;">
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 200px; height: 200px;">
+                                <i class="fas fa-user fa-5x text-muted"></i>
+                            </div>
+                            <!-- Badge de statut superposé -->
+                            <span class="position-absolute top-0 end-0 badge {% if membre.statut == 'actif' %}bg-success{% else %}bg-danger{% endif %}" style="transform: translate(25%, -25%);">
+                                {{ membre.get_statut_display }}
+                            </span>
+                        </div>
+                    {% endif %}
+                    
+                    {% if membre.qrcode %}
+                    <div class="mt-4">
+                        <h6>QR Code d'identification</h6>
+                        <img src="{{ membre.qrcode.url }}" alt="QR Code" class="img-thumbnail" style="width: 150px; height: 150px;">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Colonne droite - Détails du membre -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Informations personnelles</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Code membre:</strong> {{ membre.code }}</p>
+                            <p><strong>Nom:</strong> {{ membre.nom }}</p>
+                            <p><strong>Post-nom:</strong> {{ membre.post_nom }}</p>
+                            <p><strong>Prénom:</strong> {{ membre.prenom }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Sexe:</strong> {{ membre.get_sexe_display }}</p>
+                            <p><strong>Date de naissance:</strong> {{ membre.date_naissance|date:"d/m/Y" }}</p>
+                            <p><strong>Lieu de naissance:</strong> {{ membre.lieu_naissance }}</p>
+                            <p><strong>Âge:</strong> {{ membre.date_naissance|timesince }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Informations d'adhésion</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Province:</strong> {{ membre.get_province_display }}</p>
+                            <p><strong>Catégorie:</strong> {{ membre.get_categorie_display }}</p>
+                            <p><strong>Fonction:</strong> {{ membre.fonction }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Site (Secteur d'Activité):</strong> {{ membre.site }}</p>
+                            <p><strong>Date d'enregistrement:</strong> {{ membre.date_enregistrement|date:"d/m/Y" }}</p>
+                            <p><strong>Dernière mise à jour:</strong> {{ membre.date_mise_a_jour|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Coordonnées</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Adresse:</strong> {{ membre.adresse|default:"Non renseignée" }}</p>
+                            <p><strong>Téléphone:</strong> {{ membre.telephone|default:"Non renseigné" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong> {{ membre.email|default:"Non renseigné" }}</p>
+                            <p><strong>Profession:</strong> {{ membre.profession|default:"Non renseignée" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if membre.observations %}
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Observations</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{ membre.observations }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border: none;
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .card-header {
+        font-weight: 600;
+    }
+    
+    .action-buttons .btn {
+        margin-right: 10px;
+    }
+    
+    strong {
+        color: #495057;
+    }
+    
+    @media (max-width: 768px) {
+        .action-buttons {
+            margin-top: 15px;
+        }
+        
+        .action-buttons .btn {
+            margin-bottom: 10px;
+            margin-right: 0;
+            display: block;
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,490 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">À propos</li>
+                </ol>
+            </nav>
+            <h1 class="breadcrumb-title">À propos de RENEMICO</h1>
+        </div>
+    </section>
+
+    <!-- About Intro Section -->
+    <section class="about-intro-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="section-title mb-4">Notre Mission</h2>
+                    <p class="lead">Le Regroupement des Négociants Miniers du Congo (RENEMICO) œuvre pour la promotion et le développement du secteur minier artisanal et des négociants miniers en République Démocratique du Congo.</p>
+                    <p>RENEMICO représente les intérêts de ses membres auprès des autorités publiques, des partenaires techniques et financiers, et veille au respect des standards internationaux dans le secteur minier.</p>
+                    <div class="d-flex mt-4">
+                        <div class="me-4">
+                            <h3 class="text-primary">250+</h3>
+                            <p>Membres actifs</p>
+                        </div>
+                        <div class="me-4">
+                            <h3 class="text-primary">12+</h3>
+                            <p>Ans d'expérience</p>
+                        </div>
+                        <div>
+                            <h3 class="text-primary">15</h3>
+                            <p>Provinces couvertes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image-container position-relative">
+                        <img src="{% static 'images/about-main.jpg' %}" alt="À propos de RENEMICO" class="img-fluid rounded shadow-sm">
+                        <div class="experience-badge bg-primary text-white rounded-circle position-absolute top-0 start-0 p-3 shadow">
+                            <span class="d-block fw-bold">12</span>
+                            <span class="d-block">Ans</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section class="vision-mission-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <div class="card-icon text-primary mb-3">
+                            <i class="fas fa-bullseye fa-3x"></i>
+                        </div>
+                        <h3 class="card-title mb-3">Notre Vision</h3>
+                        <p class="card-text">Devenir la référence incontournable pour la représentation des négociants miniers en RDC, contribuant ainsi au développement d'un secteur minier artisanal formel, transparent et durable.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <div class="card-icon text-primary mb-3">
+                            <i class="fas fa-tasks fa-3x"></i>
+                        </div>
+                        <h3 class="card-title mb-3">Notre Mission</h3>
+                        <p class="card-text">RENEMICO a pour mission de défendre les intérêts de ses membres, de promouvoir les bonnes pratiques minières, de faciliter l'accès aux marchés et de former les acteurs du secteur minier artisanal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Nos Valeurs</h2>
+                <p class="lead">Les principes qui guident nos actions au quotidien</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="value-card text-center p-4">
+                        <div class="value-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                            <i class="fas fa-handshake fa-2x"></i>
+                        </div>
+                        <h4 class="mb-3">Intégrité</h4>
+                        <p>Nous agissons avec honnêteté, transparence et éthique dans toutes nos relations.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="value-card text-center p-4">
+                        <div class="value-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h4 class="mb-3">Solidarité</h4>
+                        <p>Nous encourageons l'entraide et la collaboration entre nos membres pour un secteur plus fort.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="value-card text-center p-4">
+                        <div class="value-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                            <i class="fas fa-medal fa-2x"></i>
+                        </div>
+                        <h4 class="mb-3">Excellence</h4>
+                        <p>Nous visons la qualité et l'amélioration continue dans tous nos services et actions.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="value-card text-center p-4">
+                        <div class="value-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                            <i class="fas fa-leaf fa-2x"></i>
+                        </div>
+                        <h4 class="mb-3">Durabilité</h4>
+                        <p>Nous promouvons des pratiques minières responsables et respectueuses de l'environnement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Notre Équipe</h2>
+                <p class="lead">Des professionnels dévoués à servir nos membres</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card text-center">
+                        <div class="team-image mb-3">
+                            <img src="{% static 'images/team-1.jpg' %}" alt="Directeur Général" class="img-fluid rounded-circle">
+                        </div>
+                        <h4 class="mb-1">Jean Kabasele</h4>
+                        <p class="text-muted">Directeur Général</p>
+                        <div class="team-social">
+                            <a href="#" class="text-primary me-2"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card text-center">
+                        <div class="team-image mb-3">
+                            <img src="{% static 'images/team-2.jpg' %}" alt="Responsable des Projets" class="img-fluid rounded-circle">
+                        </div>
+                        <h4 class="mb-1">Marie Lukunku</h4>
+                        <p class="text-muted">Responsable des Projets</p>
+                        <div class="team-social">
+                            <a href="#" class="text-primary me-2"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card text-center">
+                        <div class="team-image mb-3">
+                            <img src="{% static 'images/team-3.jpg' %}" alt="Responsable Formation" class="img-fluid rounded-circle">
+                        </div>
+                        <h4 class="mb-1">Paul Senga</h4>
+                        <p class="text-muted">Responsable Formation</p>
+                        <div class="team-social">
+                            <a href="#" class="text-primary me-2"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card text-center">
+                        <div class="team-image mb-3">
+                            <img src="{% static 'images/team-4.jpg' %}" alt="Responsable Plaidoyer" class="img-fluid rounded-circle">
+                        </div>
+                        <h4 class="mb-1">Chantal Mbuyi</h4>
+                        <p class="text-muted">Responsable Plaidoyer</p>
+                        <div class="team-social">
+                            <a href="#" class="text-primary me-2"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Notre Histoire</h2>
+                <p class="lead">Un parcours marqué par l'engagement et le développement</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2010</div>
+                    <div class="timeline-content">
+                        <h4>Fondation de RENEMICO</h4>
+                        <p>Création du Réseau National des Entreprises Minières du Congo par un groupe de négociants miniers visionnaires.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2013</div>
+                    <div class="timeline-content">
+                        <h4>Premier accord de partenariat</h4>
+                        <p>Signature d'un premier accord de partenariat stratégique avec le Ministère des Mines.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">
+                        <h4>Lancement des programmes de formation</h4>
+                        <p>Mise en place des premiers programmes de formation à l'intention des négociants miniers.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-content">
+                        <h4>Expansion nationale</h4>
+                        <p>Ouverture de bureaux régionaux dans 5 provinces et dépassement des 150 membres.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h4>Reconnaissance internationale</h4>
+                        <p>RENEMICO devient membre observateur de la Conférence Internationale sur la Région des Grands Lacs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Nos Partenaires</h2>
+                <p class="lead">Des collaborations qui renforcent notre action</p>
+            </div>
+            
+            <div class="row align-items-center justify-content-center">
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="partner-logo">
+                        <img src="{% static 'images/partner-1.png' %}" alt="Partenaire 1" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="partner-logo">
+                        <img src="{% static 'images/partner-2.png' %}" alt="Partenaire 2" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="partner-logo">
+                        <img src="{% static 'images/partner-3.png' %}" alt="Partenaire 3" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="partner-logo">
+                        <img src="{% static 'images/partner-4.png' %}" alt="Partenaire 4" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="partner-logo">
+                        <img src="{% static 'images/partner-5.png' %}" alt="Partenaire 5" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="partner-logo">
+                        <img src="{% static 'images/partner-6.png' %}" alt="Partenaire 6" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5" style="background-color: var(--primary-color);">
+        <div class="container text-center py-4">
+            <h2 class="mb-4 text-white">Prêt à nous rejoindre ?</h2>
+            <p class="lead mb-4 text-white">Devenez membre de RENEMICO et bénéficiez de tous nos services et avantages</p>
+            <a href="{% url 'join' %}" class="btn btn-light btn-lg me-3">Devenir Membre</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Nous contacter</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animation pour la timeline
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation des éléments de la timeline au défilement
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateX(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        timelineItems.forEach(item => {
+            item.style.opacity = 0;
+            item.style.transition = 'all 0.8s ease';
+            observer.observe(item);
+        });
+        
+        // Animation des logos partenaires au survol
+        const partnerLogos = document.querySelectorAll('.partner-logo img');
+        partnerLogos.forEach(logo => {
+            logo.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            logo.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+
+<style>
+    /* Styles spécifiques pour la page About */
+    .about-intro-section {
+        background-color: #fff;
+    }
+    
+    .experience-badge {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translate(-20%, -20%);
+    }
+    
+    .value-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .team-image {
+        overflow: hidden;
+    }
+    
+    .team-image img {
+        transition: transform 0.3s ease;
+    }
+    
+    .team-image:hover img {
+        transform: scale(1.1);
+    }
+    
+    .team-social {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .team-card:hover .team-social {
+        opacity: 1;
+    }
+    
+    .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background-color: var(--primary-color);
+    }
+    
+    .timeline-item {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 30px;
+        position: relative;
+        margin-bottom: 50px;
+        width: 50%;
+        transform: translateX(-50px);
+    }
+    
+    .timeline-item:nth-child(even) {
+        align-self: flex-end;
+        justify-content: flex-start;
+        padding-left: 30px;
+        padding-right: 0;
+        left: 50%;
+        transform: translateX(50px);
+    }
+    
+    .timeline-year {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+    
+    .timeline-item .timeline-year {
+        right: -70px;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-year {
+        left: -70px;
+    }
+    
+    .timeline-content {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        width: calc(100% - 40px);
+    }
+    
+    .partner-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        padding: 15px;
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+    }
+    
+    .partner-logo:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+        .timeline::before {
+            left: 30px;
+        }
+        
+        .timeline-item,
+        .timeline-item:nth-child(even) {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 0;
+            left: 0;
+            transform: translateX(0);
+        }
+        
+        .timeline-item .timeline-year,
+        .timeline-item:nth-child(even) .timeline-year {
+            left: 0;
+            right: auto;
+        }
+    }
+</style>
+{% endblock %}

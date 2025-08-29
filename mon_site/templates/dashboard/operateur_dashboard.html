@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Opérateur - RENEMICO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #060119;
+            --secondary-color: #e63946;
+            --accent-color: #e5e6f0;
+            --light-color: #031221;
+            --dark-color: #212529;
+            --success-color: #03000a;
+            --warning-color: #f4a261;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            --card-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            padding: 0 15px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .page-title h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .page-title p {
+            color: #666;
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e0e0e0;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+
+        .user-avatar.fallback {
+            font-weight: bold;
+            color: #fff;
+            background-color: #3f51b5;
+            font-size: 18px;
+        }
+
+        .user-avatar .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Styles spécifiques opérateur */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .operator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .operator-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .operator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .operator-card h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .operator-actions {
+            margin-top: 15px;
+        }
+        
+        .operator-actions a {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .operator-actions a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .operator-actions a i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .logo-container, .nav-link span {
+                display: none;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: 12px 5px;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+            
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+                margin-right: 5px;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+            
+            .operator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .user-info {
+                margin-top: 20px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-avatar {
+                margin-right: 15px;
+            }
+            
+            .page-title {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .user-avatar {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="{% static 'images/logo1.png' %}" alt="Logo" class="logo">
+                <div class="sidebar-title">RENEMICO</div>
+                <div class="sidebar-subtitle">République Démocratique du Congo</div>
+            </div>
+            
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <a href="{% url 'identification:dashboard' %}" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="{% url 'identification:liste' %}" class="nav-link">
+                        <i class="fas fa-id-card"></i>
+                        <span>Identification</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'finance:liste_membres_finance' %}" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Gestion des cotisations</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="{% url 'finance:liste_operations' %}" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Gestion Financière</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="{% url 'settings_view' %}" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </div>              
+             
+                <div class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content-area">
+            <div class="header">
+                <div class="page-title">
+                    <h1>Tableau de Bord Opérateur</h1>
+                    <p>Gestion des membres et transactions financières</p>
+                </div>
+                
+                <div class="user-info">
+                    {% if user.photo %}
+                        <div class="user-avatar">
+                            <img src="{{ user.photo.url }}" alt="Photo de profil" class="profile-photo">
+                        </div>
+                    {% else %}
+                        <div class="user-avatar fallback">
+                            {{ user.first_name|first }}{{ user.last_name|first }}
+                        </div>
+                    {% endif %}
+                    <div>
+                        <div class="user-name">{{ user.get_full_name }}</div>
+                        <div class="user-role">Opérateur</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title"><i class="fas fa-id-card me-2"></i>Identification</h2>
+            <div class="operator-grid">
+                <div class="operator-card">
+                    <h3><i class="fas fa-user-plus me-2"></i>Enregistrement</h3>
+                    <p>Enregistrement des nouveaux membres dans le système</p>
+                    <div class="operator-actions">
+                        <a href="{% url 'identification:dashboard' %}">
+                            <i class="fas fa-plus-circle"></i> Dashboard
+                        </a><br>
+                        <a href="{% url 'identification:enregistrement_membre' %}">
+                            <i class="fas fa-plus-circle"></i> Nouveau membre
+                        </a><br>
+                        <a href="{% url 'identification:liste' %}">
+                            <i class="fas fa-search"></i> Liste des membres
+                        </a><br>
+                    </div>
+                </div>
+                
+                <div class="operator-card">
+                    <h3><i class="fas fa-qrcode me-2"></i>Identifiants</h3>
+                    <p>Gestion des cartes et identifiants des membres</p>
+                    <div class="operator-actions">
+                        <a href="{% url 'identification:liste' %}">
+                            <i class="fas fa-id-card"></i> Générer carte
+                        </a><br>
+                        <a href="{% url 'identification:cartes_renouvelees_liste' %}">
+                            <i class="fas fa-sync-alt"></i> Renouveler carte
+                        </a><br>
+                        <a href="{% url 'identification:duplicata_creer' %}">
+                            <i class="fas fa-copy"></i> Créer un diplicata
+                        </a><br>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title"><i class="fas fa-money-bill-wave me-2"></i>Gestion Financière</h2>
+            <div class="operator-grid">
+                <div class="operator-card">
+                    <h3><i class="fas fa-cash-register me-2"></i>Cotisations mensuelles</h3>
+                    <p>Gestion des cotisations mensuelles</p>
+                    <div class="operator-actions">
+                        <a href="{% url 'finance:liste_membres_finance' %}">
+                            <i class="fas fa-hand-holding-usd"></i> Liste des membres/ Cotisations Mensuelles
+                        </a><br>
+                        <a href="{% url 'finance:liste_operations' %}">
+                            <i class="fas fa-receipt"></i> Gestion des entrées et sorties en cash
+                        </a><br>
+                    </div>
+                </div>
+                
+                <div class="operator-card">
+                    <h3><i class="fas fa-chart-line me-2"></i>Rapports Financiers</h3>
+                    <p>Suivi des transactions et statistiques</p>
+                    <div class="operator-actions">
+                        <a href="{% url 'finance:liste_operations' %}">
+                            <i class="fas fa-chart-pie"></i> Entrées en cash
+                        </a><br>
+                        <a href="{% url 'finance:liste_operations' %}">
+                            <i class="fas fa-file-excel"></i> Sorties en cash
+                        </a><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animation pour les cartes
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.operator-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

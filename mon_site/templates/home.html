@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="hero-title">Regroupement des Négociants Miniers du Congo</h1>
+            <p class="hero-subtitle">Promouvoir et défendre les intérêts des négociants miniers en RDC</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'about' %}" class="btn btn-renemico btn-lg">En savoir plus</a>
+                <a href="{% url 'contact' %}" class="btn btn-outline-dark btn-lg">Nous contacter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">Qui sommes-nous ?</h2>
+                    <p style="text-align: justify;">Dans le souci de promouvoir l'activité minière des négociants congolais et de se conformer littéralement au code minier congolais ainsi qu'au règlement minier en vigueur en République Démocratique du Congo, nous, négociants et membres fondateurs du regroupement des négociants miniers du Congo, association sans but lucratif « RENEMICO » en sigle, venons de créer et de mettre à la disposition de tous les Congolais œuvrant dans l'achat et la revente des minerais issus de l'exploitation minière artisanale ladite association régie par la loi N°004/2001 du 20 juillet 2001 portant dispositions générales applicables aux associations sans but lucratif et établissement d'utilité publique, afin de bien défendre les droits et intérêts supérieurs des négociants pour matérialiser la création de la classe moyenne telle que souhaitée par le législateur du nouveau code minier.</p>
+
+                    <p style="text-align: justify;">Constatant le sous-développement et les difficultés rencontrées par les négociants et autres acteurs congolais du secteur minier artisanal sur le plan socio-économique, nous sommes soucieux de concrétiser la vision du législateur congolais du code minier qui n'est autre que l'émergence et le développement économique des Congolais œuvrant dans l'exploitation minière artisanale.</p>
+
+                    <p style="text-align: justify;">Qu'en adoptant la constitution de la République Démocratique du Congo de 2006, telle que modifiée à ce jour, les membres de RENEMICO ASBL peuvent se réunir, s'exprimer librement pour défendre les lois de notre pays, patrimoine commun, dans la dignité et le respect de la loi fondamentale.</p>
+
+                    <p style="text-align: justify;">C'est ainsi que les présents statuts modifiés sont mis à la disposition de tout le monde et entrent en vigueur à la date des signatures par les membres fondateurs.</p>
+
+                    <h3>Nos objectifs majeurs :</h3>
+                    <ul>
+                        <li>Défendre les droits et intérêts de tous les négociants miniers du Congo</li>
+                        <li>Promouvoir le développement socio-économique et culturel des négociants miniers congolais</li>
+                        <li>Initier les opérateurs miniers congolais à des actions de développement économique</li>
+                        <li>Faire respecter la catégorie de négociant dans la chaîne de l'exploitation minière artisanale</li>
+                        <li>Être le syndicat de tous les négociants à travers le pays</li>
+                    </ul>
+
+                    <a href="{% url 'about' %}" class="btn btn-renemico mt-3">Lire plus</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'images/mem.jpg' %}" alt="Mining in RDC" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Nos Services</h2>
+                <p class="lead">Nous offrons une gamme complète de services à nos membres</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Représentation</h3>
+                        <p>Nous représentons les intérêts de nos membres auprès des autorités gouvernementales, des institutions internationales et d'autres parties prenantes du secteur minier.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Formation</h3>
+                        <p>Programmes de formation sur les meilleures pratiques minières, les normes environnementales, les droits de l'homme et les aspects commerciaux du négoce des minerais.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Plaidoyer</h3>
+                        <p>Nous plaidons pour des politiques minières équitables et des réglementations qui favorisent un environnement commercial favorable pour les négociants miniers.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Information</h3>
+                        <p>Fourniture d'informations actualisées sur les marchés, les prix des minerais, les réglementations et les opportunités commerciales.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Réseautage</h3>
+                        <p>Création de plateformes pour que nos membres puissent réseauter avec d'autres acteurs du secteur minier, y compris des acheteurs internationaux.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Due Diligence</h3>
+                        <p>Assistance dans la mise en œuvre des processus de due diligence pour garantir des chaînes d'approvisionnement responsables en minerais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <video class="img-fluid rounded shadow" autoplay loop muted playsinline>
+                        <source src="{% static 'videos/ced.mp4' %}" type="video/mp4">
+                        Votre navigateur ne supporte pas la vidéo.
+                    </video>
+                </div>
+
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">Mot du Président National</h2>
+                    <p style="text-align: justify;"> En ma qualité de Président National du Regroupement des Négociants Miniers du Congo, « RENEMICO » en sigle, je tiens avant tout à exprimer ma profonde gratitude à Son Excellence Monsieur le Président de la République, Chef de l’État, pour sa vision éclairée et son engagement constant en faveur de la bonne gouvernance, de l’émergence de la classe moyenne et du développement du secteur minier en République Démocratique du Congo. </p> 
+                    <p style="text-align: justify;"> C’est en nous inspirant de cette vision nationale que nous, négociants et membres fondateurs, avons décidé de mettre en place le RENEMICO, une association sans but lucratif qui a pour mission de défendre les droits et intérêts des négociants miniers, de promouvoir leur rôle dans la chaîne de valeur de l’exploitation artisanale et d’apporter une contribution significative au développement socio-économique de notre pays. </p> 
+                    <p style="text-align: justify;"> Nous sommes convaincus que les négociants miniers congolais représentent un maillon essentiel pour la matérialisation de la classe moyenne, moteur d’une économie nationale forte et inclusive. Ainsi, à travers RENEMICO, nous nous engageons à travailler dans le strict respect du Code et du Règlement minier en vigueur, afin d’apporter une plus-value tangible à la République et d’améliorer les conditions de vie de nos membres. </p> 
+                    <p style="text-align: justify;"> J’invite donc tous les négociants miniers du Congo, ainsi que nos partenaires institutionnels et privés, à se joindre à nous dans cette noble mission. Ensemble, unis autour de la vision de Son Excellence le Chef de l’État, nous bâtirons une économie nationale solidaire, prospère et respectueuse des lois de notre pays. </p> 
+                    <p style="text-align: right;"><b>Cédric MPUNGWE</b></p>
+                    <p style="text-align: right;"><b>Le Président National</b></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="stat-number">250+</div>
+                    <p>Membres actifs</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="stat-number">26</div>
+                    <p>Provinces couvertes</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-number">5+</div>
+                    <p>Ans d'expérience</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-number">3+</div>
+                    <p>Partenaires internationaux</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Actualités Récentes</h2>
+                <p class="lead">Restez informés sur les dernières nouvelles du secteur minier en RDC</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card">
+                        <img src="{% static 'images/ced1.jpg' %}" class="img-fluid w-100" alt="News 1">
+                        <div class="p-4">
+                            <span class="news-date"><i class="far fa-calendar-alt me-2"></i>15 Juin 2025</span>
+                            <h4 class="my-3">RENEMICO dénonce les tracasseries fiscales dans le secteur artisanal</h4>
+                            <p style="text-align: justify;">Le Président du RENEMICO, M. Cédric MPUNGWE, a exprimé son mécontentement concernant les taxes imposées aux négociants et exploitants artisanaux dans la province du Lualaba. Il a souligné que ces charges pèsent lourdement sur les acteurs du secteur, entravant leur développement et leur compétitivité. Il a également appelé à une meilleure régulation et à la protection des droits des négociants miniers...</p>
+                            <a href="#" class="btn btn-sm btn-renemico">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card">
+                        <img src="{% static 'images/mutra.jpg' %}" class="img-fluid w-100" alt="News 2">
+                        <div class="p-4">
+                            <span class="news-date"><i class="far fa-calendar-alt me-2"></i>2 Mai 2023</span>
+                            <h4 class="my-3">Descente orientée, solutions à court terme</h4>
+                            <p style="text-align: justify;">RENEMICO est activement impliquée dans la régularisation du secteur minier artisanal en RDC. Sous la direction de son Président Provincial du Lualaba, M. Mutra Mutunda, l'organisation a mené plusieurs descentes dans des sites miniers artisanaux pour sensibiliser les acteurs locaux aux bonnes pratiques et à la conformité avec la réglementation....</p>
+                            <a href="#" class="btn btn-sm btn-renemico">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card">
+                        <img src="{% static 'images/news3.jpg' %}" class="img-fluid w-100" alt="News 3">
+                        <div class="p-4">
+                            <span class="news-date"><i class="far fa-calendar-alt me-2"></i>20 Avril 2023</span>
+                            <h4 class="my-3">Formation sur les normes environnementales</h4>
+                            <p>Plus de 80 négociants miniers ont participé à notre session de formation intensive sur les meilleures pratiques environnementales dans l'exploitation minière artisanale...</p>
+                            <a href="#" class="btn btn-sm btn-renemico">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{% url 'news' %}" class="btn btn-renemico">Voir toutes les actualités</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5" style="background-color: var(--primary-color);">
+        <div class="container text-center py-4">
+            <h2 class="mb-4">Prêt à rejoindre notre réseau ?</h2>
+            <p class="lead mb-4">Devenez membre de RENEMICO et bénéficiez de tous nos services et avantages</p>
+            <a href="{% url 'join' %}" class="btn btn-renemico btn-lg me-3">Devenir Membre</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-dark btn-lg">Nous contacter</a>
+        </div>
+    </section>
+{% endblock %}
